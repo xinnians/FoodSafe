@@ -38,15 +38,15 @@ class ProductDetailFragment : PaneView<OnPageInteractionListener.Primary>() {
 
     private fun initListener(item: Product) {
         checkReportLink.setOnClickListener {
-            var uri = Uri.parse(item.inspection_reports[0])
-            var intent = Intent(Intent.ACTION_VIEW, uri)
+            val uri = Uri.parse(item.inspection_reports.first())
+            val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
         btn_back.setOnClickListener { activity?.onBackPressed() }
     }
 
     private fun initView(item: Product) {
-        Glide.with(context).load(item.images[0]).into(image_product)
+        Glide.with(context).load(item.images.first()).into(image_product)
         name.text = item.name
         weight.text = item.description
         category.text = item.category.name

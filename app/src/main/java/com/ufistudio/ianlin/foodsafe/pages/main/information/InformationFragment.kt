@@ -77,13 +77,13 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
     }
 
     private fun onQueryCategoryListSuccess(list: ArrayList<Category>) {
-        Log.e(TAG, "onQueryCategoryListSuccess call. ${list.size}")
+        Log.d(TAG, "onQueryCategoryListSuccess call. ${list.size}")
         for (item in list) tabView.addTab(tabView.newTab().setText(item.name))
         mPagerAdapter.setItems(list)
     }
 
     private fun onQueryCategoryListProgress(isProgress: Boolean) {
-        Log.e(TAG, "onQueryCategoryListProgress call. ${isProgress}")
+        Log.d(TAG, "onQueryCategoryListProgress call. ${isProgress}")
         if (isProgress) {
             progressView.visibility = View.VISIBLE
             viewPager.visibility = View.GONE

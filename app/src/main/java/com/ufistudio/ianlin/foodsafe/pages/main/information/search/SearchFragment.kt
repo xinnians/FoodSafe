@@ -186,6 +186,6 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
     }
 
     private fun onQueryProductListError(throwable: Throwable) {
-
+        Log.e(TAG, "onQueryProductListError call. ${throwable.message}")
     }
 }

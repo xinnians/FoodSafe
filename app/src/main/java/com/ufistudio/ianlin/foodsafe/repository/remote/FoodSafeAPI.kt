@@ -1,7 +1,6 @@
 package com.ufistudio.ianlin.foodsafe.repository.remote
 
 import com.ufistudio.ianlin.foodsafe.repository.data.CategoryResponse
-import com.ufistudio.ianlin.foodsafe.repository.data.DefaultResponse
 import com.ufistudio.ianlin.foodsafe.repository.data.ProductResponse
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +15,7 @@ class FoodSafeAPI : RemoteAPI() {
         private var sInstance: FoodSafeAPI? = null
         private lateinit var mService: FoodSafeService
 
-        //一頁的listView顯示幾個
+        //一頁的listView顯示幾個，之後應由後台做設定
         private const val LISTVIEW_PAGECOUNT = 10
 
         fun getInstance(): FoodSafeAPI? {
@@ -49,10 +48,8 @@ class FoodSafeAPI : RemoteAPI() {
     /*--------------------------------------------------------------------------------------------*/
     /* APIs */
 
-    fun test(): Single<DefaultResponse> = mService.test()
-
     fun categoryList(): Single<CategoryResponse> = mService.getCategory()
 
-    fun productList(field: String, search: String,page: Int): Single<ProductResponse> = mService.getProductList(field, search,LISTVIEW_PAGECOUNT,page)
+    fun productList(field: String, search: String, page: Int): Single<ProductResponse> = mService.getProductList(field, search, LISTVIEW_PAGECOUNT, page)
 
 }

@@ -77,7 +77,7 @@ class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryVie
     }
 
     private fun onQueryProductListSuccess(list: ProductList) {
-        Log.e(TAG, "onQueryProductListSuccess call. List.size:${list.data.size}, isAdd:${list.isAdd}")
+        Log.d(TAG, "onQueryProductListSuccess call. List.size:${list.data.size}, isAdd:${list.isAdd}")
         if (list.data.size == 0 && !list.isAdd) {
             recyclerView.visibility = View.GONE
             text_zero_result.visibility = View.VISIBLE
@@ -89,7 +89,7 @@ class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryVie
     }
 
     private fun onQueryProductListProgress(isProgress: Boolean) {
-        Log.e(TAG, "onQueryProductListProgress call. $isProgress")
+        Log.d(TAG, "onQueryProductListProgress call. $isProgress")
         if (isProgress) {
             progressBar.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE

@@ -3,7 +3,7 @@ package com.ufistudio.ianlin.foodsafe.repository.provider.preferences
 import android.app.Application
 import android.content.Context
 
-class SharedPreferencesProvider (
+class SharedPreferencesProvider(
         private var application: Application
 ) : AppSharedPreferences {
 

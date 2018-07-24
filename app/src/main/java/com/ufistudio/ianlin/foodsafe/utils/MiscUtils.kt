@@ -23,7 +23,7 @@ object MiscUtils {
     }
 
     inline fun <reified T> parseJSONList(jsonArray: String?): ArrayList<T> {
-        if(!jsonArray.isNullOrEmpty())
+        if (!jsonArray.isNullOrEmpty())
             return GsonBuilder().create().fromJson(jsonArray, ArrayList<T>()::class.java)
         else
             return ArrayList()
