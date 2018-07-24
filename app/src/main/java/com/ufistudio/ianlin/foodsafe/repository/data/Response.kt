@@ -14,6 +14,7 @@ data class CategoryResponse(override val code: Int,
 
 data class ProductResponse(override val code: Int,
                            override val message: String,
-                           val data: ArrayList<Product> = ArrayList(),
+                           val data: ArrayList<Product>? = ArrayList(),
                            val current_page: Int,
-                           val last_page: Int) : Base
+                           val last_page: Int,
+                           val total: Int) : Base

@@ -17,11 +17,11 @@ import com.ufistudio.ianlin.foodsafe.repository.data.Product
 import com.ufistudio.ianlin.foodsafe.repository.data.ProductList
 import kotlinx.android.synthetic.main.fragment_product_list.*
 
-class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryView>(){
+class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryView>() {
 
     private lateinit var mViewModel: ProductListViewModel
     private lateinit var mAdapter: ProductListAdapter
-    private  var mPosition: Int = 0
+    private var mPosition: Int = 0
 
     companion object {
         fun NewInstance(): ProductListFragment = ProductListFragment()
@@ -47,12 +47,12 @@ class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        mPosition = arguments?.getInt(PAGE_POSITION,0)!!
+        mPosition = arguments?.getInt(PAGE_POSITION, 0)!!
         mViewModel.queryProductList(mPosition)
     }
 
     override fun onDestroyView() {
-        recyclerView.adapter = null
+        recyclerView?.adapter = null
         super.onDestroyView()
     }
 
@@ -60,9 +60,9 @@ class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryVie
         recyclerView.layoutManager = LinearLayoutManager(context)
         mAdapter = ProductListAdapter { data: Product -> itemClick(data) }
         recyclerView.adapter = mAdapter
-        recyclerView.addOnScrollListener(object : EndLessOnScrollListener(recyclerView.layoutManager as LinearLayoutManager){
+        recyclerView.addOnScrollListener(object : EndLessOnScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
             override fun onLoadMore(currentPage: Int) {
-                mViewModel.queryProductList(mPosition,currentPage)
+                mViewModel.queryProductList(mPosition, currentPage)
             }
         })
         layout_swipe_refresh.setOnRefreshListener {
@@ -73,22 +73,27 @@ class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryVie
 
     //進詳細頁
     private fun itemClick(data: Product) {
-        getInteractionListener().openDetailPage()
-        Toast.makeText(context, "進詳細頁", Toast.LENGTH_SHORT).show()
+        getInteractionListener().openDetailPage(data)
     }
 
     private fun onQueryProductListSuccess(list: ProductList) {
-        Log.e(TAG, "onQueryProductListSuccess call. List.size:${list.data?.size}, isAdd:${list.isAdd}")
-        recyclerView.visibility = View.VISIBLE
-        mAdapter.setItems(list.data,list.isAdd)
+        Log.e(TAG, "onQueryProductListSuccess call. List.size:${list.data.size}, isAdd:${list.isAdd}")
+        if (list.data.size == 0) {
+            recyclerView.visibility = View.GONE
+            text_zero_result.visibility = View.VISIBLE
+        } else {
+            text_zero_result.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
+        mAdapter.setItems(list.data, list.isAdd)
     }
 
     private fun onQueryProductListProgress(isProgress: Boolean) {
         Log.e(TAG, "onQueryProductListProgress call. $isProgress")
-        if(isProgress){
+        if (isProgress) {
             progressBar.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
-        }else{
+        } else {
             progressBar.visibility = View.GONE
         }
     }

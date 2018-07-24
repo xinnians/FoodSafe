@@ -8,7 +8,7 @@ import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.pages.base.InteractionView
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 
-class NewsFragment: InteractionView<OnPageInteractionListener.MainView>() {
+class NewsFragment: InteractionView<OnPageInteractionListener.Pane>() {
 
     companion object {
         fun NewInstance(): NewsFragment = NewsFragment()

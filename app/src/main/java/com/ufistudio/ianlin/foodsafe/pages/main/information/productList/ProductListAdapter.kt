@@ -23,11 +23,12 @@ class ProductListAdapter(private val clickListener: (Product) -> Unit) : Recycle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         mItems?.get(position)?.let {
             holder.bind(it, clickListener)
-            holder.itemView.tag = it}
+            holder.itemView.tag = it
+        }
     }
 
-    fun setItems(items: ArrayList<Product>?,isAdd: Boolean = false) {
-        if(!isAdd)
+    fun setItems(items: ArrayList<Product>?, isAdd: Boolean = false) {
+        if (!isAdd)
             this.mItems = items
         else
             items?.let { this.mItems?.addAll(it) }

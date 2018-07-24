@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.SparseArray
 import com.ufistudio.ianlin.foodsafe.constants.Page
-import com.ufistudio.ianlin.foodsafe.pages.main.MainFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.InformationFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.news.NewsFragment
 import com.ufistudio.ianlin.foodsafe.utils.ActivityUtils

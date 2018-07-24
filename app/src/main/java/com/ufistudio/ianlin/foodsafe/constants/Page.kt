@@ -2,7 +2,6 @@ package com.ufistudio.ianlin.foodsafe.constants
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.ufistudio.ianlin.foodsafe.pages.main.MainFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.InformationFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.ProductDetailFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListFragment
@@ -17,7 +16,6 @@ object Page {
 
     const val INVALID_PAGE = -1
 
-    const val MAIN = 1000
     const val INFORMATION = 1001
     const val PRODUCT_LIST = 1002
     const val NEWS = 1003
@@ -32,7 +30,6 @@ object Page {
         var result : Fragment
 
         when(page){
-            MAIN -> result = MainFragment.NewInstance()
             INFORMATION -> result = InformationFragment.NewInstance()
             PRODUCT_LIST -> result = ProductListFragment.NewInstance()
             NEWS -> result = NewsFragment.NewInstance()

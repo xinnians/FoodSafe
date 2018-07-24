@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">FoodSafe</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
     <string name="title_information">食安資訊</string>
     <string name="title_news">食安新聞</string>
     <string name="title_pingtung_local_farmer">屏東在地小農</string>
     <string name="title_video_area">影音專區</string>
+
+    <string name="common_zero_result">無符合的商品搜尋結果</string>
 
     <string name="search_bar_title">食安</string>
     <string name="search_bar_cancel">取消</string>
@@ -16,4 +15,9 @@
 
     <string name="product_detail_title">食安資訊</string>
     <string name="product_detail_information_title">產品資訊</string>
+    <string name="product_detail_report_title">檢驗報告</string>
+    <string name="product_detail_link"><![CDATA[PDF檔案連結下載 >]]></string>
+    <string name="product_detail_checkDate">送樣/檢驗日期&#160;:&#160;</string>
+    <string name="product_detail_category">檢驗標的&#160;:&#160;</string>
+    <string name="product_detail_checkItems">檢驗項目&#160;:&#160;</string>
 </resources>
