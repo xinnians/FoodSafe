@@ -31,11 +31,9 @@
 
         <ImageView
             android:id="@+id/search_bar_start"
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
