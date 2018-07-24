@@ -1,0 +1,73 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/background</item>
+        <item name="colorPrimaryDark">@color/background</item>
+        <item name="colorAccent">@color/tiffanyBlue</item>
+        <!-- 使用LightStatusBarMode -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Information_list_Name">
+        <item name="android:text">name</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_13sdp</item>
+    </style>
+
+    <style name="Information_list_weight">
+        <item name="android:text">weight</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:textColor">@color/lightGray</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+    </style>
+
+    <style name="Information_list_category">
+        <item name="android:text">category</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:textColor">@color/tiffanyBlue</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+    </style>
+
+    <style name="Information_list_items">
+        <item name="android:text">item</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:textColor">@color/lightGray</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+    </style>
+
+    <style name="Information_category_tab" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textColor">@color/lightGray</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:elevation">@dimen/_2sdp</item>
+    </style>
+
+    <style name="Information_title">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Search_cancel">
+        <item name="android:text">@string/search_bar_cancel</item>
+        <item name="android:textColor">@color/tiffanyBlue</item>
+        <item name="android:textSize">@dimen/_13sdp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Search_edittext">
+        <item name="android:inputType">text</item>
+        <item name="android:hint">@string/search_bar_input_hint</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:textColorHint">@color/lightGray</item>
+        <item name="android:background">@null</item>
+        <item name="android:textCursorDrawable">@drawable/search_bar_edittext_cursor</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">left|center</item>
+    </style>
+
+</resources>

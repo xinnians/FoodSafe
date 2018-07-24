@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background">#ffffff</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="searchBarBackground">#F3F7FB</color>
+    <color name="information_item_border">#EEEEEE</color>
+
+    <color name="black">#000000</color>
+    <color name="lightBlack">#414141</color>
+    <color name="lightGray">#959595</color>
+    <color name="tiffanyBlue">#1CBCBC</color>
+
+    <color name="navigation_default">#A4AAB3</color>
+</resources>
