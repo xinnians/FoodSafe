@@ -8,7 +8,7 @@ import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.pages.base.InteractionView
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 
-class NewsFragment: InteractionView<OnPageInteractionListener.MainView>() {
+class NewsFragment: InteractionView<OnPageInteractionListener.Pane>() {
 
     companion object {
         fun NewInstance(): NewsFragment = NewsFragment()
@@ -16,7 +16,6 @@ class NewsFragment: InteractionView<OnPageInteractionListener.MainView>() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        var layout = inflater.inflate(R.layout.fragment_news,container,false)
-        return layout
+        return inflater.inflate(R.layout.fragment_news,container,false)
     }
 }

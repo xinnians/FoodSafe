@@ -163,36 +163,48 @@
                 app:layout_constraintTop_toBottomOf="@+id/category" />
 
             <TextView
-                android:id="@+id/checkDate"
-                android:layout_width="0dp"
+                android:id="@+id/checkDateTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_17sdp"
-                android:layout_marginEnd="@dimen/_13sdp"
                 android:layout_marginStart="@dimen/_13sdp"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:gravity="start|center"
-                android:text="checkDate"
+                android:text="@string/product_detail_checkDate"
                 android:textColor="@color/lightGray"
                 android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/checkDateContent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/company" />
+
+            <TextView
+                android:id="@+id/checkDateContent"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_marginEnd="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="checkDateContent"
+                android:textColor="@color/lightGray"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toEndOf="@+id/checkDateTitle"
                 app:layout_constraintTop_toBottomOf="@+id/company" />
 
             <View
                 android:id="@+id/block_gray2"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/information_item_border"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkDate" />
+                app:layout_constraintTop_toBottomOf="@+id/checkDateTitle" />
 
             <TextView
                 android:id="@+id/subtitle_report"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_17sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/product_detail_information_title"
+                android:text="@string/product_detail_report_title"
                 android:textColor="@color/lightBlack"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -218,6 +230,123 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/subtitle_report"
                 app:layout_constraintTop_toTopOf="@+id/subtitle_report" />
+
+            <TextView
+                android:id="@+id/checkDateTitle_again"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="@string/product_detail_checkDate"
+                android:textColor="@color/lightGray"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toStartOf="@+id/checkDateContent_again"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subtitle_report" />
+
+            <TextView
+                android:id="@+id/checkDateContent_again"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_marginEnd="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="checkDateContent"
+                android:textColor="@color/lightGray"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintStart_toEndOf="@+id/checkDateTitle_again"
+                app:layout_constraintTop_toBottomOf="@+id/subtitle_report" />
+
+            <TextView
+                android:id="@+id/categoryTitle_again"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="@string/product_detail_category"
+                android:textColor="@color/lightGray"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toStartOf="@+id/categoryContent_again"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkDateTitle_again" />
+
+            <TextView
+                android:id="@+id/categoryContent_again"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_marginEnd="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="categoryContent"
+                android:textColor="@color/lightGray"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/categoryTitle_again"
+                app:layout_constraintTop_toBottomOf="@+id/checkDateTitle_again" />
+
+            <TextView
+                android:id="@+id/ckeckItemsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="@string/product_detail_checkItems"
+                android:textColor="@color/lightGray"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toStartOf="@+id/ckeckItemsContent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryTitle_again" />
+
+            <TextView
+                android:id="@+id/ckeckItemsContent"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_marginEnd="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="start|center"
+                android:text="ckeckItemsContent"
+                android:textColor="@color/lightGray"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ckeckItemsTitle"
+                app:layout_constraintTop_toBottomOf="@+id/categoryTitle_again" />
+
+            <View
+                android:id="@+id/block_gray3"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@color/information_item_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ckeckItemsContent" />
+
+            <TextView
+                android:id="@+id/checkReportLink"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_13sdp"
+                android:gravity="start|center"
+                android:text="@string/product_detail_link"
+                android:textColor="@color/tiffanyBlue"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/block_gray3" />
+
+            <View
+                android:id="@+id/block_gray4"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_8sdp"
+                android:background="@color/information_item_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkReportLink" />
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

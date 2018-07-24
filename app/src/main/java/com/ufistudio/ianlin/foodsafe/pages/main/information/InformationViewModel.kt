@@ -20,13 +20,13 @@ class InformationViewModel(application: Application,
     val queryCategoryListProgress = MutableLiveData<Boolean>()
     val queryCategoryListError = MutableLiveData<Throwable>()
 
-    fun queryCategoryList(){
+    fun queryCategoryList() {
         compositeDisposable.add(repository.getCategory()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { queryCategoryListProgress.value = true }
                 .doFinally { queryCategoryListProgress.value = false }
                 .subscribe({ queryCategoryListSuccess.value = it.data as ArrayList<Category> },
-                        { queryCategoryListError.value = it}))
+                        { queryCategoryListError.value = it }))
     }
 
 }

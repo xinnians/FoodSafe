@@ -3,7 +3,6 @@ package com.ufistudio.ianlin.foodsafe
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.ufistudio.ianlin.foodsafe.pages.main.MainFragmentViewModel
 import com.ufistudio.ianlin.foodsafe.pages.main.information.InformationViewModel
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListViewModel
 import com.ufistudio.ianlin.foodsafe.pages.main.information.search.SearchViewModel
@@ -22,7 +21,6 @@ class ViewModelFactory(private val application: Application,
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return with(modelClass) {
             when {
-                isAssignableFrom(MainFragmentViewModel::class.java) -> MainFragmentViewModel(application, CompositeDisposable(), repository)
                 isAssignableFrom(InformationViewModel::class.java) -> InformationViewModel(application, CompositeDisposable(), repository, preferences, resource)
                 isAssignableFrom(ProductListViewModel::class.java) -> ProductListViewModel(application, CompositeDisposable(), repository, preferences, resource)
                 isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel(application, CompositeDisposable(), repository, preferences, resource)

@@ -36,8 +36,8 @@ class ProductListViewModel(application: Application,
                 .doFinally { if (page == 1) queryListProgress.value = false }
                 .subscribe({
                     if (page == 1)
-                        mProductList = ProductList(it.data, false)
-                    queryListSuccess.value = ProductList(it.data, page != 1)
+                        mProductList = ProductList(it.data ?: ArrayList(), false)
+                    queryListSuccess.value = ProductList(it.data ?: ArrayList(), page != 1)
                 },
                         { queryListError.value = it })
         )

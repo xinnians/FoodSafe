@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +15,16 @@ import android.widget.Toast
 import com.ufistudio.ianlin.foodsafe.AppInjector
 import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.componets.EndLessOnScrollListener
+import com.ufistudio.ianlin.foodsafe.constants.Page
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 import com.ufistudio.ianlin.foodsafe.pages.base.PaneView
+import com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.ProductDetailFragment.Companion.DETAIL_DATA
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListAdapter
 import com.ufistudio.ianlin.foodsafe.repository.data.Product
+import com.ufistudio.ianlin.foodsafe.repository.data.ProductList
 import kotlinx.android.synthetic.main.fragment_search.*
 
-class SearchFragment : PaneView<OnPageInteractionListener.Primary>(){
+class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
 
     private lateinit var mHistoryAdapter: SearchHistoryAdapter
     private lateinit var mResultAdapter: ProductListAdapter
@@ -43,7 +47,7 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>(){
         mViewModel.queryProductListSuccess.observe(this, Observer { it?.let { it1 -> onQueryProductListSuccess(it1) } })
         mViewModel.queryProductListProgress.observe(this, Observer { it?.let { it1 -> onQueryProductListProgress(it1) } })
         mViewModel.queryProductListError.observe(this, Observer { it?.let { it1 -> onQueryProductListError(it1) } })
-        
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,6 +64,12 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>(){
     override fun onPause() {
         super.onPause()
         editText.clearFocus()
+    }
+
+    override fun onDestroyView() {
+        list_history?.adapter = null
+        list_result?.adapter = null
+        super.onDestroyView()
     }
 
     private fun initListener() {
@@ -87,13 +97,11 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>(){
 
         })
         editText.setOnEditorActionListener { v, actionId, _ ->
-            when(actionId){
+            when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> mViewModel.queryProductList(v?.text.toString())
             }
             true
         }
-
-
     }
 
     private fun initView() {
@@ -107,20 +115,22 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>(){
         list_result.layoutManager = LinearLayoutManager(context)
         mResultAdapter = ProductListAdapter { data: Product -> onResultItemClick(data) }
         list_result.adapter = mResultAdapter
-        list_result.addOnScrollListener(object : EndLessOnScrollListener(list_result.layoutManager as LinearLayoutManager){
+        list_result.addOnScrollListener(object : EndLessOnScrollListener(list_result.layoutManager as LinearLayoutManager) {
             override fun onLoadMore(currentPage: Int) {
-                Toast.makeText(context,"onLoadMore $currentPage",Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "[onLoadMore] currentPage:$currentPage")
+                mViewModel.queryProductList(editText.text.toString(), currentPage)
             }
         })
         layout_swipe_refresh.setOnRefreshListener {
             mViewModel.queryProductList(editText.text.toString())
             layout_swipe_refresh.isRefreshing = false
         }
-
     }
 
     private fun onResultItemClick(data: Product) {
-
+        var args = Bundle()
+        args.putParcelable(DETAIL_DATA, data)
+        addPage(Page.PRODUCT_DETAIL, args, true, true)
     }
 
     // call search api
@@ -129,44 +139,53 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>(){
         mViewModel.queryProductList(keyword)
     }
 
-    private fun onGetSearchHistorySuccess(list: ArrayList<String>){
+    private fun onGetSearchHistorySuccess(list: ArrayList<String>) {
         mHistoryAdapter.setItems(list)
     }
 
-    private fun onGetSearchHistoryProgress(isShow: Boolean){
+    private fun onGetSearchHistoryProgress(isShow: Boolean) {
         layout_history.visibility = View.VISIBLE
         layout_result.visibility = View.INVISIBLE
-        if(isShow){
+        if (isShow) {
             progressBar.visibility = View.VISIBLE
             list_history.visibility = View.INVISIBLE
-        }else{
+        } else {
             progressBar.visibility = View.INVISIBLE
             list_history.visibility = View.VISIBLE
         }
     }
 
-    private fun onGetSearchHistoryError(throwable: Throwable){
+    private fun onGetSearchHistoryError(throwable: Throwable) {
 
     }
 
-    private fun onQueryProductListSuccess(list: ArrayList<Product>){
-        text_result.text = String.format(getString(R.string.search_result_count),list.size)
-        mResultAdapter.setItems(list)
+    private fun onQueryProductListSuccess(list: ProductList) {
+        if (list.data.size == 0 && !list.isAdd) {
+            text_result.visibility = View.INVISIBLE
+            list_result.visibility = View.INVISIBLE
+            text_zero_result.visibility = View.VISIBLE
+        } else {
+            text_zero_result.visibility = View.INVISIBLE
+            text_result.visibility = View.VISIBLE
+            list_result.visibility = View.VISIBLE
+            text_result.text = String.format(getString(R.string.search_result_count), list.total)
+        }
+        mResultAdapter.setItems(list.data, list.isAdd)
     }
 
-    private fun onQueryProductListProgress(isShow: Boolean){
+    private fun onQueryProductListProgress(isShow: Boolean) {
         layout_history.visibility = View.INVISIBLE
         layout_result.visibility = View.VISIBLE
-        if(isShow){
+        if (isShow) {
             progressBar.visibility = View.VISIBLE
             list_result.visibility = View.INVISIBLE
-        }else{
+            text_result.visibility = View.INVISIBLE
+        } else {
             progressBar.visibility = View.INVISIBLE
-            list_result.visibility = View.VISIBLE
         }
     }
 
-    private fun onQueryProductListError(throwable: Throwable){
-
+    private fun onQueryProductListError(throwable: Throwable) {
+        Log.e(TAG, "onQueryProductListError call. ${throwable.message}")
     }
 }

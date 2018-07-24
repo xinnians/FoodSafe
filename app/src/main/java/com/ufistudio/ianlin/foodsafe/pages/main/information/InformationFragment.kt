@@ -12,7 +12,9 @@ import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.constants.Page
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 import com.ufistudio.ianlin.foodsafe.pages.base.PaneView
+import com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.ProductDetailFragment.Companion.DETAIL_DATA
 import com.ufistudio.ianlin.foodsafe.repository.data.Category
+import com.ufistudio.ianlin.foodsafe.repository.data.Product
 import kotlinx.android.synthetic.main.fragment_information.*
 
 class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPageInteractionListener.PrimaryView {
@@ -50,19 +52,6 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
 
     private fun initListener() {
         search_bar_start.setOnClickListener { addPage(Page.SEARCH, Bundle(), true) }
-//        tabView.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//
-//            }
-//
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                tab?.position?.let { viewPager.currentItem = it }
-//            }
-//        })
         tabView.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewPager))
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabView))
     }
@@ -81,22 +70,24 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
     }
 
     //進詳細頁
-    override fun openDetailPage() {
-        addPage(Page.PRODUCT_DETAIL,Bundle(),true,true)
+    override fun openDetailPage(item: Product) {
+        val args = Bundle()
+        args.putParcelable(DETAIL_DATA, item)
+        addPage(Page.PRODUCT_DETAIL, args, true, true)
     }
 
     private fun onQueryCategoryListSuccess(list: ArrayList<Category>) {
-        Log.e(TAG, "onQueryCategoryListSuccess call. ${list.size}")
+        Log.d(TAG, "onQueryCategoryListSuccess call. ${list.size}")
         for (item in list) tabView.addTab(tabView.newTab().setText(item.name))
         mPagerAdapter.setItems(list)
     }
 
     private fun onQueryCategoryListProgress(isProgress: Boolean) {
-        Log.e(TAG, "onQueryCategoryListProgress call. ${isProgress}")
-        if(isProgress){
+        Log.d(TAG, "onQueryCategoryListProgress call. ${isProgress}")
+        if (isProgress) {
             progressView.visibility = View.VISIBLE
             viewPager.visibility = View.GONE
-        }else{
+        } else {
             progressView.visibility = View.GONE
             viewPager.visibility = View.VISIBLE
         }

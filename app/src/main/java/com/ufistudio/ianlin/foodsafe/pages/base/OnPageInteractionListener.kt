@@ -2,7 +2,7 @@ package com.ufistudio.ianlin.foodsafe.pages.base
 
 import android.os.Bundle
 import android.support.annotation.IdRes
-import com.ufistudio.ianlin.foodsafe.pages.main.MainFragment
+import com.ufistudio.ianlin.foodsafe.repository.data.Product
 
 interface OnPageInteractionListener {
 
@@ -19,18 +19,10 @@ interface OnPageInteractionListener {
 
     interface Primary : Pane
 
-    interface Main : Pane {
-        fun setNavigationViewPosition(@IdRes id: Int)
-        fun setPagerController(controller: MainFragment.PagerController)
-        fun clearPagerController()
-    }
-
     /*--------------------------------------------------------------------------------------------*/
     /* Fragment <-> Fragment */
-    interface MainView : Base {
-    }
 
     interface PrimaryView : Base {
-        fun openDetailPage()
+        fun openDetailPage(item: Product)
     }
 }

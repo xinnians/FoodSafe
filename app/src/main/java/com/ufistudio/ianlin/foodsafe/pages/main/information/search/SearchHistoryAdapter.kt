@@ -21,7 +21,8 @@ class SearchHistoryAdapter(private val clickListener: (String) -> Unit) : Recycl
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         mItems?.get(position)?.let {
             holder.bind(it, clickListener)
-            holder.itemView.tag = it}
+            holder.itemView.tag = it
+        }
     }
 
     fun setItems(items: List<String>) {
