@@ -160,7 +160,7 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
     }
 
     private fun onQueryProductListSuccess(list: ProductList) {
-        if (list.data.size == 0) {
+        if (list.data.size == 0 && !list.isAdd) {
             text_result.visibility = View.INVISIBLE
             list_result.visibility = View.INVISIBLE
             text_zero_result.visibility = View.VISIBLE

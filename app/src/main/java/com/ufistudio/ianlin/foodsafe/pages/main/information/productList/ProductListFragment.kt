@@ -78,7 +78,7 @@ class ProductListFragment : InteractionView<OnPageInteractionListener.PrimaryVie
 
     private fun onQueryProductListSuccess(list: ProductList) {
         Log.e(TAG, "onQueryProductListSuccess call. List.size:${list.data.size}, isAdd:${list.isAdd}")
-        if (list.data.size == 0) {
+        if (list.data.size == 0 && !list.isAdd) {
             recyclerView.visibility = View.GONE
             text_zero_result.visibility = View.VISIBLE
         } else {
