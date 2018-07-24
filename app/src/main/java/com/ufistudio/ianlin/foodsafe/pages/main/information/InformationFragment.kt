@@ -71,7 +71,7 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
 
     //進詳細頁
     override fun openDetailPage(item: Product) {
-        val args: Bundle = Bundle()
+        val args = Bundle()
         args.putParcelable(DETAIL_DATA, item)
         addPage(Page.PRODUCT_DETAIL, args, true, true)
     }

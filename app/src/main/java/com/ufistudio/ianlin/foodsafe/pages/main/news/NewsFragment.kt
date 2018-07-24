@@ -16,7 +16,6 @@ class NewsFragment: InteractionView<OnPageInteractionListener.Pane>() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        var layout = inflater.inflate(R.layout.fragment_news,container,false)
-        return layout
+        return inflater.inflate(R.layout.fragment_news,container,false)
     }
 }
