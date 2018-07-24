@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_44sdp">
+
+    <TextView
+        android:id="@+id/search_bar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_bar_title"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        android:textStyle="bold"
+        android:textSize="@dimen/_17sdp"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/search_bar_start"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_13sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btn_nav_search"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/editText_background"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/search_bar_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_search_bar"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/search_bar_cancel"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:text="@string/search_bar_cancel"
+        android:textColor="@color/tiffanyBlue"
+        android:textSize="@dimen/_16sdp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/search_bar_icon"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_background"
+        app:layout_constraintStart_toStartOf="@+id/editText_background"
+        app:layout_constraintTop_toTopOf="@+id/editText_background"
+        app:srcCompat="@drawable/ic_searchbar_search"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_19sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:inputType="textVisiblePassword"
+        android:hint="@string/search_bar_input_hint"
+        android:textSize="@dimen/_15sdp"
+        android:textColorHint="@color/lightGray"
+        android:background="@null"
+        android:textCursorDrawable="@drawable/search_bar_edittext_cursor"
+        android:imeOptions="actionSearch"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_background"
+        app:layout_constraintEnd_toEndOf="@+id/editText_background"
+        app:layout_constraintStart_toEndOf="@+id/search_bar_icon"
+        app:layout_constraintTop_toTopOf="@+id/editText_background"
+        android:visibility="invisible"/>
+
+</android.support.constraint.ConstraintLayout>

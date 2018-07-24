@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="default_category_name">
+        <item >米</item>
+        <item >麵粉</item>
+        <item >麵條</item>
+        <item >食用油</item>
+        <item >乳製品</item>
+        <item >蛋</item>
+    </string-array>
+
+</resources>
