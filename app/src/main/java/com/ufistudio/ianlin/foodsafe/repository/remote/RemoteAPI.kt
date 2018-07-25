@@ -14,11 +14,11 @@ abstract class RemoteAPI {
 
     companion object {
         private val TAG = RemoteAPI::class.simpleName
-        private val MAX_IDLE_CONNECTIONS = 8
-        private val KEEP_ALIVE_DURATION = 300L
-        private val CONNECTION_TIMEOUT = 15L
-        private val READ_TIMEOUT = 15L
-        private val WRITE_TIMEOUT = 15L
+        private const val MAX_IDLE_CONNECTIONS = 8
+        private const val KEEP_ALIVE_DURATION = 300L
+        private const val CONNECTION_TIMEOUT = 15L
+        private const val READ_TIMEOUT = 15L
+        private const val WRITE_TIMEOUT = 15L
 
         private lateinit var sContextRef: WeakReference<Context>
         private var mOkHttpClient: OkHttpClient? = null
@@ -27,11 +27,11 @@ abstract class RemoteAPI {
             sContextRef = WeakReference(context)
         }
 
-        fun createClient(): OkHttpClient {
+        private fun createClient(): OkHttpClient {
             var context = sContextRef.get()
 
-            var connectionPool = ConnectionPool(MAX_IDLE_CONNECTIONS, KEEP_ALIVE_DURATION, TimeUnit.SECONDS)
-            var builder = OkHttpClient.Builder()
+            val connectionPool = ConnectionPool(MAX_IDLE_CONNECTIONS, KEEP_ALIVE_DURATION, TimeUnit.SECONDS)
+            val builder = OkHttpClient.Builder()
             builder.connectionPool(connectionPool)
                     .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
@@ -57,7 +57,6 @@ abstract class RemoteAPI {
                     Log.e(TAG, "[enableTLS12OnPreLollipop] Error while setting TLS 1.2 ${e.message}")
                 }
             }
-
             return builder
         }
     }
