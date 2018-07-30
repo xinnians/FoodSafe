@@ -37,10 +37,10 @@ class ProductListAdapter(private val clickListener: (Product) -> Unit) : Recycle
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: Product, clickListener: (Product) -> Unit) {
-            Glide.with(itemView.image.context).load(data.images.first()).into(itemView.image)
+            Glide.with(itemView.image.context).load(data.images?.first()).into(itemView.image)
             itemView.name.text = data.name
             itemView.weight.text = data.description
-            itemView.category.text = data.category.name
+            itemView.category.text = data.category?.name
             itemView.company.text = data.company
             itemView.checkDate.text = data.inspection_date
             itemView.setOnClickListener { clickListener(data) }
