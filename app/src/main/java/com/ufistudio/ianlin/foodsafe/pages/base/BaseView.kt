@@ -1,9 +1,12 @@
 package com.ufistudio.ianlin.foodsafe.pages.base
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.MotionEvent
+import android.view.View
 
-abstract class BaseView : Fragment(), AppBaseView{
+abstract class BaseView : Fragment(), AppBaseView, View.OnTouchListener{
 
     private val TAG = BaseView::class.simpleName
 
@@ -20,4 +23,11 @@ abstract class BaseView : Fragment(), AppBaseView{
             return false
         return true
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.setOnTouchListener(this)
+    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean = true
 }
