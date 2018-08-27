@@ -3,6 +3,7 @@ package com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,7 @@ class ProductDetailFragment : PaneView<OnPageInteractionListener.Primary>() {
         const val DETAIL_DATA = "com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.detail_data"
     }
 
-    private lateinit var mItem: Product
+    private var mItem: Product? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -31,29 +32,35 @@ class ProductDetailFragment : PaneView<OnPageInteractionListener.Primary>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mItem = arguments?.getParcelable(DETAIL_DATA) as Product
-        initView(mItem)
-        initListener(mItem)
+        arguments?.let {
+            Log.e(TAG,"arguments : $it")
+            if(it.containsKey(DETAIL_DATA)){
+                mItem = arguments?.getParcelable(DETAIL_DATA) as Product
+                mItem?.let { initView(it) }
+                initListener(mItem)
+            }
+        }
     }
 
-    private fun initListener(item: Product) {
+    private fun initListener(item: Product?) {
         checkReportLink.setOnClickListener {
-            val uri = Uri.parse(item.inspection_reports.first())
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
+            item?.let {
+                val uri = Uri.parse(it.inspection_reports?.first())
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent) }
         }
         btn_back.setOnClickListener { activity?.onBackPressed() }
     }
 
     private fun initView(item: Product) {
-        Glide.with(context).load(item.images.first()).into(image_product)
+        Glide.with(context).load(item.images?.first()).into(image_product)
         name.text = item.name
         weight.text = item.description
-        category.text = item.category.name
+        category.text = item.category?.name
         company.text = item.company
         checkDateContent.text = item.inspection_date
         checkDateContent_again.text = item.inspection_date
-        categoryContent_again.text = item.category.name
+        categoryContent_again.text = item.category?.name
     }
 
 }

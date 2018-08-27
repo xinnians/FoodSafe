@@ -8,10 +8,7 @@ import com.ufistudio.ianlin.foodsafe.repository.provider.resource.ResourceProvid
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel(application: Application,
-                             private val compositeDisposable: CompositeDisposable,
-                             private val repository: Repository,
-                             private val preferences: SharedPreferencesProvider,
-                             private val resource: ResourceProvider) : AndroidViewModel(application) {
+                             private val compositeDisposable: CompositeDisposable) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()

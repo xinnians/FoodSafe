@@ -12,9 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class InformationViewModel(application: Application,
                            private val compositeDisposable: CompositeDisposable,
-                           private val repository: Repository,
-                           private val preferences: SharedPreferencesProvider,
-                           private val resource: ResourceProvider) : BaseViewModel(application, compositeDisposable, repository, preferences, resource) {
+                           private val repository: Repository) : BaseViewModel(application, compositeDisposable) {
 
     val queryCategoryListSuccess = MutableLiveData<ArrayList<Category>>()
     val queryCategoryListProgress = MutableLiveData<Boolean>()
