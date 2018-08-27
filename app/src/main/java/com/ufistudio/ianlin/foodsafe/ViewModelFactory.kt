@@ -17,13 +17,15 @@ class ViewModelFactory(private val application: Application,
                        private val preferences: SharedPreferencesProvider,
                        private val resource: ResourceProvider) : ViewModelProvider.NewInstanceFactory() {
 
+    //ViewModel需要的model再打進去
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return with(modelClass) {
             when {
-                isAssignableFrom(InformationViewModel::class.java) -> InformationViewModel(application, CompositeDisposable(), repository, preferences, resource)
-                isAssignableFrom(ProductListViewModel::class.java) -> ProductListViewModel(application, CompositeDisposable(), repository, preferences, resource)
-                isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel(application, CompositeDisposable(), repository, preferences, resource)
+                isAssignableFrom(InformationViewModel::class.java) -> InformationViewModel(application, CompositeDisposable(), repository)
+                isAssignableFrom(ProductListViewModel::class.java) -> ProductListViewModel(application, CompositeDisposable(), repository)
+                isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel(application, CompositeDisposable(), repository)
                 else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             } as T
         }

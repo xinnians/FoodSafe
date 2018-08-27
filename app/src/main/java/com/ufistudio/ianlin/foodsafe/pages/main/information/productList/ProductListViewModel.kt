@@ -13,9 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 class ProductListViewModel(application: Application,
                            private val compositeDisposable: CompositeDisposable,
-                           private val repository: Repository,
-                           private val preferences: SharedPreferencesProvider,
-                           private val resource: ResourceProvider) : BaseViewModel(application, compositeDisposable, repository, preferences, resource) {
+                           private val repository: Repository) : BaseViewModel(application, compositeDisposable) {
 
     val queryListSuccess = MutableLiveData<ProductList>()
     val queryListProgress = MutableLiveData<Boolean>()
