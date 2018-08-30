@@ -2,6 +2,7 @@ package com.ufistudio.ianlin.foodsafe.repository
 
 import android.app.Application
 import com.ufistudio.ianlin.foodsafe.repository.data.CategoryResponse
+import com.ufistudio.ianlin.foodsafe.repository.data.NewsResponse
 import com.ufistudio.ianlin.foodsafe.repository.data.ProductResponse
 import com.ufistudio.ianlin.foodsafe.repository.provider.preferences.PreferencesKey
 import com.ufistudio.ianlin.foodsafe.repository.provider.preferences.PreferencesKey.SEARCH_HISTORY
@@ -30,6 +31,10 @@ class Repository(private var application: Application, private val sharedPrefere
             else -> "name:"
         }
         return FoodSafeAPI.getInstance()!!.productList(searchFields.plus("like"), searchFields.plus(search), page)
+    }
+
+    fun getNewsInfo():Single<NewsResponse> {
+        return FoodSafeAPI.getInstance()!!.newsInfoList("","",0)
     }
 
     // local
