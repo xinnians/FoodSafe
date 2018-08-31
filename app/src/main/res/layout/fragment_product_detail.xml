@@ -78,6 +78,7 @@
                 android:text="@string/product_detail_information_title"
                 android:textColor="@color/lightBlack"
                 android:textSize="@dimen/_12sdp"
+                android:typeface="monospace"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/block_gray1" />
@@ -86,19 +87,17 @@
                 android:layout_width="@dimen/_29sdp"
                 android:layout_height="@dimen/_1sdp"
                 android:background="@color/information_item_border"
+                android:layout_marginEnd="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/subtitle_information"
                 app:layout_constraintEnd_toStartOf="@+id/subtitle_information"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/subtitle_information" />
 
             <View
                 android:layout_width="@dimen/_29sdp"
                 android:layout_height="@dimen/_1sdp"
                 android:background="@color/information_item_border"
+                android:layout_marginStart="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/subtitle_information"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/subtitle_information"
                 app:layout_constraintTop_toTopOf="@+id/subtitle_information" />
 
@@ -207,6 +206,7 @@
                 android:text="@string/product_detail_report_title"
                 android:textColor="@color/lightBlack"
                 android:textSize="@dimen/_12sdp"
+                android:typeface="monospace"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/block_gray2" />
@@ -215,19 +215,17 @@
                 android:layout_width="@dimen/_29sdp"
                 android:layout_height="@dimen/_1sdp"
                 android:background="@color/information_item_border"
+                android:layout_marginEnd="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/subtitle_report"
                 app:layout_constraintEnd_toStartOf="@+id/subtitle_report"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/subtitle_report" />
 
             <View
                 android:layout_width="@dimen/_29sdp"
                 android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:background="@color/information_item_border"
                 app:layout_constraintBottom_toBottomOf="@+id/subtitle_report"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/subtitle_report"
                 app:layout_constraintTop_toTopOf="@+id/subtitle_report" />
 
@@ -236,7 +234,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_17sdp"
                 android:layout_marginStart="@dimen/_13sdp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_19sdp"
                 android:gravity="start|center"
                 android:text="@string/product_detail_checkDate"
                 android:textColor="@color/lightGray"
@@ -250,7 +248,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_17sdp"
                 android:layout_marginEnd="@dimen/_13sdp"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_19sdp"
                 android:gravity="start|center"
                 android:text="checkDateContent"
                 android:textColor="@color/lightGray"
