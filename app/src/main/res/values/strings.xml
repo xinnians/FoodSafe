@@ -8,7 +8,7 @@
 
     <string name="common_zero_result">無符合的商品搜尋結果</string>
 
-    <string name="search_bar_title">食安</string>
+    <string name="search_bar_title">食安資訊</string>
     <string name="search_bar_cancel">取消</string>
     <string name="search_bar_input_hint">請輸入商品名稱</string>
     <string name="search_result_count">共有%s筆符合的商品搜尋結果</string>
