@@ -71,15 +71,26 @@
         style="@style/Information_list_items"/>
 
     <TextView
+        android:id="@+id/checkDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/product_detail_checkDate"
+        android:textColor="@color/lightGray"
+        android:textSize="@dimen/_10sdp"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@+id/company"
+        app:layout_constraintStart_toStartOf="@+id/company"
+        style="@style/Information_list_items"/>
+
+    <TextView
         android:id="@+id/checkDate"
-        android:layout_width="@dimen/_128sdp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/_14sdp"
         android:layout_marginEnd="@dimen/_13sdp"
         android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginStart="@dimen/_34sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/company"
-        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintStart_toEndOf="@+id/checkDateTitle"
         style="@style/Information_list_items"/>
 
 </android.support.constraint.ConstraintLayout>
