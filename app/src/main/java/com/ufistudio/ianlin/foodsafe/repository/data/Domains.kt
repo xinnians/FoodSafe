@@ -24,9 +24,10 @@ data class ProductList(val data: ArrayList<Product>,
                        val total: Int = 0)
 
 @Parcelize
-data class News(val id: Int?,
-                val images: ArrayList<String>?,
-                val updated_at: String?,
-                val created_at: String?,
-                val title: String?,
-                val date: String?) : Parcelable
+data class NewsInfo(val id: Int?,
+                    val images: ArrayList<String>?,
+                    val updated_at: String?,
+                    val created_at: String?,
+                    val title: String?,
+                    val date: String?,
+                    val action: String?) : Parcelable

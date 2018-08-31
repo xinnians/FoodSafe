@@ -21,4 +21,4 @@ data class ProductResponse(override val code: Int,
 
 data class NewsResponse(override val code: Int,
                             override val message: String,
-                            val data: List<Category>) : Base
+                            val data: List<NewsInfo>) : Base
