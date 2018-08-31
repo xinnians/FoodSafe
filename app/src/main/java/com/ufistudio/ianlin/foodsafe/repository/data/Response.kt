@@ -18,3 +18,7 @@ data class ProductResponse(override val code: Int,
                            val current_page: Int,
                            val last_page: Int,
                            val total: Int) : Base
+
+data class NewsResponse(override val code: Int,
+                            override val message: String,
+                            val data: List<NewsInfo>) : Base
