@@ -33,8 +33,8 @@ class Repository(private var application: Application, private val sharedPrefere
         return FoodSafeAPI.getInstance()!!.productList(searchFields.plus("like"), searchFields.plus(search), page)
     }
 
-    fun getNewsInfo():Single<NewsResponse> {
-        return FoodSafeAPI.getInstance()!!.newsInfoList("","",0)
+    fun getNewsInfo(page: Int): Single<NewsResponse> {
+        return FoodSafeAPI.getInstance()!!.newsInfoList(page)
     }
 
     // local

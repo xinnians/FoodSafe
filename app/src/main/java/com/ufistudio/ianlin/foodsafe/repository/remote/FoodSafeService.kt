@@ -19,6 +19,7 @@ interface FoodSafeService {
                        @Query("page") page: Int): Single<ProductResponse>
 
     @GET("api/knowledge")
-    fun getNewsInfo(): Single<NewsResponse>
+    fun getNewsInfo(@Query("page") page: Int)
+            : Single<NewsResponse>
 
 }

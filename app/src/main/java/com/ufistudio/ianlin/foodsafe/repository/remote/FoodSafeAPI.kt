@@ -53,6 +53,6 @@ class FoodSafeAPI : RemoteAPI() {
 
     fun productList(field: String, search: String, page: Int): Single<ProductResponse> = mService.getProductList(field, search, LISTVIEW_PAGECOUNT, page)
 
-    fun newsInfoList(field: String, search: String, page: Int): Single<NewsResponse> = mService.getNewsInfo()
+    fun newsInfoList(page: Int): Single<NewsResponse> = mService.getNewsInfo(page)
 
 }

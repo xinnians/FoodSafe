@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.google.firebase.perf.metrics.AddTrace
 import com.ufistudio.ianlin.foodsafe.AppInjector
 import com.ufistudio.ianlin.foodsafe.R
+import com.ufistudio.ianlin.foodsafe.componets.EndLessOnScrollListener
 import com.ufistudio.ianlin.foodsafe.pages.base.InteractionView
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 import com.ufistudio.ianlin.foodsafe.repository.data.NewsInfo
@@ -45,17 +46,29 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        initRefresh()
+    }
 
+    private fun initRefresh() {
+        layout_swipe_refresh.setOnRefreshListener {
+            mViewModel.refreshQueryNewsList()
+            layout_swipe_refresh.isRefreshing = false
+        }
     }
 
     private fun initRecyclerView() {
-        recyclerView_content.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         mRecyclerViewAdapter = NewsInfoListAdapter()
-        recyclerView_content.adapter = mRecyclerViewAdapter
+        recyclerView.adapter = mRecyclerViewAdapter
+
+        recyclerView.addOnScrollListener(object : EndLessOnScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            override fun onLoadMore(currentPage: Int) {
+                mViewModel.queryNewsList()
+            }
+        })
     }
 
     private fun onQueryNewsInfoListSuccess(list: ArrayList<NewsInfo>) {
-            Log.d("Neo", "data = " + list.get(0).title)
         mRecyclerViewAdapter.setData(list)
     }
 
@@ -64,10 +77,10 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
         Log.d(TAG, "onQueryCategoryListProgress call. ${isProgress}")
         if (isProgress) {
             progressView.visibility = View.VISIBLE
-            recyclerView_content.visibility = View.GONE
+            recyclerView.visibility = View.GONE
         } else {
             progressView.visibility = View.GONE
-            recyclerView_content.visibility = View.VISIBLE
+            recyclerView.visibility = View.VISIBLE
         }
     }
 
