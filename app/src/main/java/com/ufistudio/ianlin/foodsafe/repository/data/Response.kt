@@ -23,3 +23,8 @@ data class NewsResponse(override val code: Int,
                         override val message: String,
                         val data: List<NewsInfo>,
                         val last_page: Int) : Base
+
+data class TopicsResponse(override val code: Int,
+                          override val message: String,
+                          val data: List<Topic>,
+                          val last_page: Int) : Base

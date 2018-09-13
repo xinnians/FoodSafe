@@ -31,3 +31,12 @@ data class NewsInfo(val id: Int?,
                     val title: String?,
                     val date: String?,
                     val action: String?) : Parcelable
+
+@Parcelize
+data class Topic(val id: Int?,
+                 val title: String?,
+                 val images: ArrayList<String>?,
+                 val date: String?,
+                 val updated_at: String?,
+                 val created_at: String?,
+                 val category: String?) : Parcelable

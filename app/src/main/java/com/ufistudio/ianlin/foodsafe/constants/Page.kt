@@ -7,6 +7,7 @@ import com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.Produc
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.news.NewsFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.search.SearchFragment
+import com.ufistudio.ianlin.foodsafe.pages.main.topics.TopicsFragment
 import java.lang.IllegalArgumentException
 
 object Page {
@@ -21,6 +22,7 @@ object Page {
     const val NEWS = 1003
     const val SEARCH = 1004
     const val PRODUCT_DETAIL = 1005
+    const val TOPICS = 1006
 
     /*--------------------------------------------------------------------------------------------*/
     /* Helpers */
@@ -35,6 +37,7 @@ object Page {
             NEWS -> result = NewsFragment.NewInstance()
             SEARCH -> result = SearchFragment.NewInstance()
             PRODUCT_DETAIL -> result = ProductDetailFragment.NewInstance()
+            TOPICS -> result = TopicsFragment.newInstance()
             else -> throw IllegalArgumentException("No match view! page = $page")
         }
 

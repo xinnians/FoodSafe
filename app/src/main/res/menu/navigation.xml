@@ -12,9 +12,9 @@
         android:title="@string/title_news" />
 
     <item
-        android:id="@+id/navigation_pingtung_local_farmer"
+        android:id="@+id/navigation_topics"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_pingtung_local_farmer" />
+        android:title="@string/title_topic" />
 
     <item
         android:id="@+id/navigation_video_area"

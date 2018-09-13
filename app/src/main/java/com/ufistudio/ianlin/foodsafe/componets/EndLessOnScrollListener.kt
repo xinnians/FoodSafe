@@ -34,6 +34,15 @@ abstract class EndLessOnScrollListener(linearLayoutManager: LinearLayoutManager)
     }
 
     abstract fun onLoadMore(currentPage: Int)
+
+    fun restore() {
+        currentPage = 0
+        totalItemCount = 0
+        previousTotal = 0
+        visibleItemCount = 0
+        firstVisibleItem = 0
+        currentPage = 1
+    }
 }
 
 

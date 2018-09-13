@@ -4,6 +4,7 @@ import android.app.Application
 import com.ufistudio.ianlin.foodsafe.repository.data.CategoryResponse
 import com.ufistudio.ianlin.foodsafe.repository.data.NewsResponse
 import com.ufistudio.ianlin.foodsafe.repository.data.ProductResponse
+import com.ufistudio.ianlin.foodsafe.repository.data.TopicsResponse
 import com.ufistudio.ianlin.foodsafe.repository.provider.preferences.PreferencesKey
 import com.ufistudio.ianlin.foodsafe.repository.provider.preferences.PreferencesKey.SEARCH_HISTORY
 import com.ufistudio.ianlin.foodsafe.repository.provider.preferences.SharedPreferencesProvider
@@ -35,6 +36,10 @@ class Repository(private var application: Application, private val sharedPrefere
 
     fun getNewsInfo(page: Int): Single<NewsResponse> {
         return FoodSafeAPI.getInstance()!!.newsInfoList(page)
+    }
+
+    fun getTopics(page: Int): Single<TopicsResponse> {
+        return FoodSafeAPI.getInstance()!!.topicList(page)
     }
 
     // local
