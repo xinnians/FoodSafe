@@ -9,12 +9,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class NewsViewModel(application: Application,
-                    private val compositeDisposable: CompositeDisposable,
-                    private val repository: Repository) : BaseViewModel(application, compositeDisposable) {
+                    private val mCompositeDisposable: CompositeDisposable,
+                    private val mRepository: Repository) : BaseViewModel(application, mCompositeDisposable) {
 
-    val queryNewsInfoListSuccess = MutableLiveData<ArrayList<NewsInfo>>()
-    val queryNewsInfoListProgress = MutableLiveData<Boolean>()
-    val queryNewsInfoListError = MutableLiveData<Throwable>()
+    val mQueryNewsInfoListSuccess = MutableLiveData<ArrayList<NewsInfo>>()
+    val mQueryNewsInfoListProgress = MutableLiveData<Boolean>()
+    val mQueryNewsInfoListError = MutableLiveData<Throwable>()
 
     private var mPage: Int = 1
     private var mLastPage: Int = -1
@@ -25,12 +25,12 @@ class NewsViewModel(application: Application,
             return
         }
 
-        compositeDisposable.add(repository.getNewsInfo(mPage)
+        mCompositeDisposable.add(mRepository.getNewsInfo(mPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
-                    queryNewsInfoListProgress.value = true
+                    mQueryNewsInfoListProgress.value = true
                 }
-                .doFinally { queryNewsInfoListProgress.value = false }
+                .doFinally { mQueryNewsInfoListProgress.value = false }
                 .subscribe(
                         {
                             mLastPage = it.last_page
@@ -43,9 +43,9 @@ class NewsViewModel(application: Application,
                                 mNewsInfoList?.addAll(mNewsInfoList?.size!!, list)
                             }
 
-                            queryNewsInfoListSuccess.value = mNewsInfoList
+                            mQueryNewsInfoListSuccess.value = mNewsInfoList
                         },
-                        { queryNewsInfoListError.value = it })
+                        { mQueryNewsInfoListError.value = it })
         )
     }
 

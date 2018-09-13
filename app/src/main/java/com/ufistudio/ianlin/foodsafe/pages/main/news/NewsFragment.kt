@@ -19,9 +19,10 @@ import kotlinx.android.synthetic.main.fragment_news.*
 class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
     private lateinit var mViewModel: NewsViewModel
     private lateinit var mRecyclerViewAdapter: NewsInfoListAdapter
+    private lateinit var mEndLessOnScrollListener: EndLessOnScrollListener
 
     companion object {
-        fun NewInstance(): NewsFragment = NewsFragment()
+        fun newInstance(): NewsFragment = NewsFragment()
         private val TAG = NewsFragment::class.simpleName
     }
 
@@ -31,9 +32,9 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
 
         mViewModel = AppInjector.obtainViewModel(this)
 
-        mViewModel.queryNewsInfoListSuccess.observe(this, Observer { it?.let { it1 -> onQueryNewsInfoListSuccess(it1) } })
-        mViewModel.queryNewsInfoListProgress.observe(this, Observer { onQueryNewsInfoListProgress(it!!) })
-        mViewModel.queryNewsInfoListError.observe(this, Observer { onQueryNewsInfoListError(it!!) })
+        mViewModel.mQueryNewsInfoListSuccess.observe(this, Observer { it?.let { it1 -> onQueryNewsInfoListSuccess(it1) } })
+        mViewModel.mQueryNewsInfoListProgress.observe(this, Observer { onQueryNewsInfoListProgress(it!!) })
+        mViewModel.mQueryNewsInfoListError.observe(this, Observer { onQueryNewsInfoListError(it!!) })
 
         mViewModel.queryNewsList()
     }
@@ -53,6 +54,7 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
         layout_swipe_refresh.setOnRefreshListener {
             mViewModel.refreshQueryNewsList()
             layout_swipe_refresh.isRefreshing = false
+            mEndLessOnScrollListener.restore()
         }
     }
 
@@ -60,12 +62,13 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         mRecyclerViewAdapter = NewsInfoListAdapter()
         recyclerView.adapter = mRecyclerViewAdapter
-
-        recyclerView.addOnScrollListener(object : EndLessOnScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+        mEndLessOnScrollListener = object : EndLessOnScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
             override fun onLoadMore(currentPage: Int) {
                 mViewModel.queryNewsList()
             }
-        })
+        }
+
+        recyclerView.addOnScrollListener(mEndLessOnScrollListener)
     }
 
     private fun onQueryNewsInfoListSuccess(list: ArrayList<NewsInfo>) {

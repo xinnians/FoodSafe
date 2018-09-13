@@ -34,7 +34,7 @@ object Page {
         when(page){
             INFORMATION -> result = InformationFragment.NewInstance()
             PRODUCT_LIST -> result = ProductListFragment.NewInstance()
-            NEWS -> result = NewsFragment.NewInstance()
+            NEWS -> result = NewsFragment.newInstance()
             SEARCH -> result = SearchFragment.NewInstance()
             PRODUCT_DETAIL -> result = ProductDetailFragment.NewInstance()
             TOPICS -> result = TopicsFragment.newInstance()
