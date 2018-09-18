@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_information"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_bowl_of_white_rice"
         android:title="@string/title_information" />
 
     <item
         android:id="@+id/navigation_news"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_thumbs_down"
         android:title="@string/title_news" />
 
     <item
         android:id="@+id/navigation_pingtung_local_farmer"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_tab_video"
         android:title="@string/title_pingtung_local_farmer" />
 
     <item

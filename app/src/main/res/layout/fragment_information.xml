@@ -1,90 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+    android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/search_bar"
+    <io.codetail.widget.RevealFrameLayout
+        android:id="@+id/container_frame"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="@dimen/_2sdp"
-        android:background="@color/background">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/search_bar_title"
-            android:layout_width="wrap_content"
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:elevation="@dimen/_2sdp"
+                android:background="@color/background">
+
+                <TextView
+                    android:id="@+id/search_bar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_bar_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    style="@style/Information_title"/>
+
+                <ImageView
+                    android:id="@+id/search_bar_start"
+                    android:layout_width="@dimen/_48sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:scaleType="centerInside"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/btn_nav_search"
+                    android:visibility="visible"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/space2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/information_item_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_bar"
+                android:elevation="@dimen/_2sdp"/>
+
+            <com.ufistudio.ianlin.foodsafe.componets.CategoryTabView
+                android:id="@+id/tabView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_35sdp"
+                app:tabIndicatorColor="@color/tiffanyBlue"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/tiffanyBlue"
+                style="@style/Information_category_tab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/space2"
+                android:visibility="visible"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabView"
+                android:visibility="gone"/>
+
+            <ProgressBar
+                android:id="@+id/progressView"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintBottom_toBottomOf="@+id/tabView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/space2" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </io.codetail.widget.RevealFrameLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|bottom">
+
+        <LinearLayout
+            android:id="@+id/left_drawer"
+            android:orientation="vertical"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
-            android:text="@string/search_bar_title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            style="@style/Information_title"/>
-
-        <ImageView
-            android:id="@+id/search_bar_start"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:scaleType="centerInside"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/btn_nav_search"
-            android:visibility="visible"/>
-
-    </android.support.constraint.ConstraintLayout>
-
-    <View
-        android:id="@+id/space2"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_1sdp"
-        android:background="@color/information_item_border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        android:elevation="@dimen/_2sdp"/>
-
-    <com.ufistudio.ianlin.foodsafe.componets.CategoryTabView
-        android:id="@+id/tabView"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_35sdp"
-        app:tabIndicatorColor="@color/tiffanyBlue"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/tiffanyBlue"
-        style="@style/Information_category_tab"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space2"
-        android:visibility="visible"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabView"
-        android:visibility="gone"/>
-
-    <ProgressBar
-        android:id="@+id/progressView"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_25sdp"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toBottomOf="@+id/tabView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space2" />
-
-</android.support.constraint.ConstraintLayout>
+            android:divider="@android:color/transparent"
+            android:background="@android:color/transparent">
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.DrawerLayout>
