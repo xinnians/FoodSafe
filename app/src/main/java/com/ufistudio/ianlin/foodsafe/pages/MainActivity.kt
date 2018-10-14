@@ -72,9 +72,9 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
                 switchPage(R.id.fragment_container,Page.NEWS,Bundle(),true,false)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_pingtung_local_farmer -> {
+            R.id.navigation_topics -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.NEWS,Bundle(),true,false)
+                switchPage(R.id.fragment_container,Page.TOPICS,Bundle(),true,false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_video_area -> {

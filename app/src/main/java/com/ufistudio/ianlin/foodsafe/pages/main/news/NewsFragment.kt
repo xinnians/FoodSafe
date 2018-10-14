@@ -7,20 +7,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewFragment
 import com.google.firebase.perf.metrics.AddTrace
 import com.ufistudio.ianlin.foodsafe.AppInjector
 import com.ufistudio.ianlin.foodsafe.R
-import com.ufistudio.ianlin.foodsafe.pages.base.InteractionView
+import com.ufistudio.ianlin.foodsafe.componets.EndLessOnScrollListener
+import com.ufistudio.ianlin.foodsafe.constants.Page
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
+import com.ufistudio.ianlin.foodsafe.pages.base.PaneView
 import com.ufistudio.ianlin.foodsafe.repository.data.NewsInfo
 import kotlinx.android.synthetic.main.fragment_news.*
 
-class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
+class NewsFragment : PaneView<OnPageInteractionListener.Primary>(), OnPageInteractionListener.NewsView, NewsInfoListAdapter.OnItemClickListener {
     private lateinit var mViewModel: NewsViewModel
     private lateinit var mRecyclerViewAdapter: NewsInfoListAdapter
+    private lateinit var mEndLessOnScrollListener: EndLessOnScrollListener
 
     companion object {
-        fun NewInstance(): NewsFragment = NewsFragment()
+        fun newInstance(): NewsFragment = NewsFragment()
         private val TAG = NewsFragment::class.simpleName
     }
 
@@ -30,9 +34,9 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
 
         mViewModel = AppInjector.obtainViewModel(this)
 
-        mViewModel.queryNewsInfoListSuccess.observe(this, Observer { it?.let { it1 -> onQueryNewsInfoListSuccess(it1) } })
-        mViewModel.queryNewsInfoListProgress.observe(this, Observer { onQueryNewsInfoListProgress(it!!) })
-        mViewModel.queryNewsInfoListError.observe(this, Observer { onQueryNewsInfoListError(it!!) })
+        mViewModel.mQueryNewsInfoListSuccess.observe(this, Observer { it?.let { it1 -> onQueryNewsInfoListSuccess(it1) } })
+        mViewModel.mQueryNewsInfoListProgress.observe(this, Observer { onQueryNewsInfoListProgress(it!!) })
+        mViewModel.mQueryNewsInfoListError.observe(this, Observer { onQueryNewsInfoListError(it!!) })
 
         mViewModel.queryNewsList()
     }
@@ -45,17 +49,42 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        initRefresh()
+    }
 
+    override fun openWebView(url: String) {
+        val args = Bundle()
+        args.putString(com.ufistudio.ianlin.foodsafe.utils.views.WebViewFragment.URL, url)
+        addPage(Page.WEB_VIEW, args, true, true)
+    }
+
+    override fun onClick(view: View) {
+        openWebView(view.tag.toString())
+    }
+
+
+    private fun initRefresh() {
+        layout_swipe_refresh.setOnRefreshListener {
+            mViewModel.refreshQueryNewsList()
+            layout_swipe_refresh.isRefreshing = false
+            mEndLessOnScrollListener.restore()
+        }
     }
 
     private fun initRecyclerView() {
-        recyclerView_content.layoutManager = LinearLayoutManager(context)
-        mRecyclerViewAdapter = NewsInfoListAdapter()
-        recyclerView_content.adapter = mRecyclerViewAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        mRecyclerViewAdapter = NewsInfoListAdapter(this)
+        recyclerView.adapter = mRecyclerViewAdapter
+        mEndLessOnScrollListener = object : EndLessOnScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            override fun onLoadMore(currentPage: Int) {
+                mViewModel.queryNewsList()
+            }
+        }
+
+        recyclerView.addOnScrollListener(mEndLessOnScrollListener)
     }
 
     private fun onQueryNewsInfoListSuccess(list: ArrayList<NewsInfo>) {
-            Log.d("Neo", "data = " + list.get(0).title)
         mRecyclerViewAdapter.setData(list)
     }
 
@@ -64,14 +93,14 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
         Log.d(TAG, "onQueryCategoryListProgress call. ${isProgress}")
         if (isProgress) {
             progressView.visibility = View.VISIBLE
-            recyclerView_content.visibility = View.GONE
+            recyclerView.visibility = View.GONE
         } else {
             progressView.visibility = View.GONE
-            recyclerView_content.visibility = View.VISIBLE
+            recyclerView.visibility = View.VISIBLE
         }
     }
 
     private fun onQueryNewsInfoListError(throwable: Throwable) {
-        Log.d("Neo", "throwable = $throwable")
+        Log.d(TAG, "throwable = $throwable")
     }
 }

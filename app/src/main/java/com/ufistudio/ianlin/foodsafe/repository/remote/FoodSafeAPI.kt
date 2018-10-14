@@ -3,6 +3,7 @@ package com.ufistudio.ianlin.foodsafe.repository.remote
 import com.ufistudio.ianlin.foodsafe.repository.data.CategoryResponse
 import com.ufistudio.ianlin.foodsafe.repository.data.NewsResponse
 import com.ufistudio.ianlin.foodsafe.repository.data.ProductResponse
+import com.ufistudio.ianlin.foodsafe.repository.data.TopicsResponse
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
@@ -53,6 +54,8 @@ class FoodSafeAPI : RemoteAPI() {
 
     fun productList(field: String, search: String, page: Int): Single<ProductResponse> = mService.getProductList(field, search, LISTVIEW_PAGECOUNT, page)
 
-    fun newsInfoList(field: String, search: String, page: Int): Single<NewsResponse> = mService.getNewsInfo()
+    fun newsInfoList(page: Int): Single<NewsResponse> = mService.getNewsInfo(page)
+
+    fun topicList(page: Int): Single<TopicsResponse> = mService.getTopics(page)
 
 }

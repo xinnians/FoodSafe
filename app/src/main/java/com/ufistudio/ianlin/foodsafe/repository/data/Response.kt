@@ -1,6 +1,6 @@
 package com.ufistudio.ianlin.foodsafe.repository.data
 
-interface Base{
+interface Base {
     val code: Int
     val message: String
 }
@@ -20,5 +20,11 @@ data class ProductResponse(override val code: Int,
                            val total: Int) : Base
 
 data class NewsResponse(override val code: Int,
-                            override val message: String,
-                            val data: List<NewsInfo>) : Base
+                        override val message: String,
+                        val data: List<NewsInfo>,
+                        val last_page: Int) : Base
+
+data class TopicsResponse(override val code: Int,
+                          override val message: String,
+                          val data: List<Topic>,
+                          val last_page: Int) : Base
