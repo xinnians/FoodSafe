@@ -16,6 +16,10 @@
         <activity
             android:name=".pages.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".pages.SplashActivity"
+            android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dd0cc2932ef2244be9f48a330fd7c692de8b9ed6" />
