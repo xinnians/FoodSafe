@@ -8,6 +8,7 @@ import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductL
 import com.ufistudio.ianlin.foodsafe.pages.main.news.NewsFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.search.SearchFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.topics.TopicsFragment
+import com.ufistudio.ianlin.foodsafe.utils.views.WebViewFragment
 import java.lang.IllegalArgumentException
 
 object Page {
@@ -24,34 +25,37 @@ object Page {
     const val PRODUCT_DETAIL = 1005
     const val TOPICS = 1006
 
+    const val WEB_VIEW = 2001
+
     /*--------------------------------------------------------------------------------------------*/
     /* Helpers */
-    fun tag(page: Int) :String = "page_$page"
+    fun tag(page: Int): String = "page_$page"
 
-    fun view(page: Int, args: Bundle): Fragment{
-        var result : Fragment
+    fun view(page: Int, args: Bundle): Fragment {
+        var result: Fragment
 
-        when(page){
+        when (page) {
             INFORMATION -> result = InformationFragment.NewInstance()
             PRODUCT_LIST -> result = ProductListFragment.NewInstance()
             NEWS -> result = NewsFragment.newInstance()
             SEARCH -> result = SearchFragment.NewInstance()
             PRODUCT_DETAIL -> result = ProductDetailFragment.NewInstance()
             TOPICS -> result = TopicsFragment.newInstance()
+            WEB_VIEW -> result = WebViewFragment.newInstance()
             else -> throw IllegalArgumentException("No match view! page = $page")
         }
 
-        args.putInt(ARG_PAGE,page)
-        putData(result,args)
+        args.putInt(ARG_PAGE, page)
+        putData(result, args)
 
         return result
     }
 
-    private fun putData(fragment: Fragment,data: Bundle){
+    private fun putData(fragment: Fragment, data: Bundle) {
         var args = fragment.arguments;
-        if(args == null){
+        if (args == null) {
             fragment.arguments = data
-        }else{
+        } else {
             args.putAll(data)
         }
     }

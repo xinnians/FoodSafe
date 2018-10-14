@@ -7,16 +7,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewFragment
 import com.google.firebase.perf.metrics.AddTrace
 import com.ufistudio.ianlin.foodsafe.AppInjector
 import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.componets.EndLessOnScrollListener
-import com.ufistudio.ianlin.foodsafe.pages.base.InteractionView
+import com.ufistudio.ianlin.foodsafe.constants.Page
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
+import com.ufistudio.ianlin.foodsafe.pages.base.PaneView
 import com.ufistudio.ianlin.foodsafe.repository.data.NewsInfo
 import kotlinx.android.synthetic.main.fragment_news.*
 
-class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
+class NewsFragment : PaneView<OnPageInteractionListener.Primary>(), OnPageInteractionListener.NewsView, NewsInfoListAdapter.OnItemClickListener {
     private lateinit var mViewModel: NewsViewModel
     private lateinit var mRecyclerViewAdapter: NewsInfoListAdapter
     private lateinit var mEndLessOnScrollListener: EndLessOnScrollListener
@@ -50,6 +52,17 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
         initRefresh()
     }
 
+    override fun openWebView(url: String) {
+        val args = Bundle()
+        args.putString(com.ufistudio.ianlin.foodsafe.utils.views.WebViewFragment.URL, url)
+        addPage(Page.WEB_VIEW, args, true, true)
+    }
+
+    override fun onClick(view: View) {
+        openWebView(view.tag.toString())
+    }
+
+
     private fun initRefresh() {
         layout_swipe_refresh.setOnRefreshListener {
             mViewModel.refreshQueryNewsList()
@@ -60,7 +73,7 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
 
     private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
-        mRecyclerViewAdapter = NewsInfoListAdapter()
+        mRecyclerViewAdapter = NewsInfoListAdapter(this)
         recyclerView.adapter = mRecyclerViewAdapter
         mEndLessOnScrollListener = object : EndLessOnScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
             override fun onLoadMore(currentPage: Int) {
@@ -88,6 +101,6 @@ class NewsFragment : InteractionView<OnPageInteractionListener.Pane>() {
     }
 
     private fun onQueryNewsInfoListError(throwable: Throwable) {
-        Log.d("Neo", "throwable = $throwable")
+        Log.d(TAG, "throwable = $throwable")
     }
 }
