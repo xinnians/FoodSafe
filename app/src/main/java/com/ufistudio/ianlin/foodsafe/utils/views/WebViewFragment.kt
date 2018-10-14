@@ -40,7 +40,7 @@ class WebViewFragment : InteractionView<OnPageInteractionListener.WebView>() {
 
     private fun loadUrl() {
 
-        webView.webChromeClient = object : WebChromeClient() {
+        webView.webChromeClient = object : VideoEnabledWebChromeClient(nonVideoView, hasVideoView) {
         }
 
         webView.webViewClient = object : WebViewClient() {
