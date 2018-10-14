@@ -19,6 +19,11 @@ interface OnPageInteractionListener {
 
     interface Primary : Pane
 
+    interface NewsView {
+        fun openWebView(url: String)
+    }
+
+    interface WebView : Pane
     /*--------------------------------------------------------------------------------------------*/
     /* Fragment <-> Fragment */
 

@@ -9,9 +9,22 @@ import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.repository.data.NewsInfo
 import kotlinx.android.synthetic.main.item_news_info.view.*
 
-class NewsInfoListAdapter : RecyclerView.Adapter<NewsInfoListAdapter.ViewHolder>() {
+class NewsInfoListAdapter() : RecyclerView.Adapter<NewsInfoListAdapter.ViewHolder>() {
 
     private var mItems: ArrayList<NewsInfo>? = null
+
+    companion object {
+        private var mOnClickListener: OnItemClickListener? = null
+    }
+
+
+    constructor(listener: OnItemClickListener?) : this() {
+        mOnClickListener = listener
+    }
+
+    interface OnItemClickListener {
+        fun onClick(view: View)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news_info, parent, false)
@@ -37,8 +50,11 @@ class NewsInfoListAdapter : RecyclerView.Adapter<NewsInfoListAdapter.ViewHolder>
             itemView.date.text = it.date
 
             Glide.with(itemView.context)
-                    .load(it.images?.get(0))
+                    .load(it.image)
                     .into(itemView.image)
+
+            itemView.tag = it.url
+            itemView.setOnClickListener { mOnClickListener?.onClick(itemView) }
         }
     }
 }
