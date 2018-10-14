@@ -202,26 +202,26 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements Medi
         if (isVideoFullscreen)
         {
             // Hide the video view, remove it, and show the non-video view
-            activityVideoView.setVisibility(View.INVISIBLE);
-            activityVideoView.removeView(videoViewContainer);
-            activityNonVideoView.setVisibility(View.VISIBLE);
-
-            // Call back (only in API level <19, because in API level 19+ with chromium webview it crashes)
-            if (videoViewCallback != null && !videoViewCallback.getClass().getName().contains(".chromium."))
-            {
-                videoViewCallback.onCustomViewHidden();
-            }
-
-            // Reset video related variables
-            isVideoFullscreen = false;
-            videoViewContainer = null;
-            videoViewCallback = null;
-
-            // Notify full-screen change
-            if (toggledFullscreenCallback != null)
-            {
-                toggledFullscreenCallback.toggledFullscreen(false);
-            }
+//            activityVideoView.setVisibility(View.INVISIBLE);
+//            activityVideoView.removeView(videoViewContainer);
+//            activityNonVideoView.setVisibility(View.VISIBLE);
+//
+//            // Call back (only in API level <19, because in API level 19+ with chromium webview it crashes)
+//            if (videoViewCallback != null && !videoViewCallback.getClass().getName().contains(".chromium."))
+//            {
+//                videoViewCallback.onCustomViewHidden();
+//            }
+//
+//            // Reset video related variables
+//            isVideoFullscreen = false;
+//            videoViewContainer = null;
+//            videoViewCallback = null;
+//
+//            // Notify full-screen change
+//            if (toggledFullscreenCallback != null)
+//            {
+//                toggledFullscreenCallback.toggledFullscreen(false);
+//            }
         }
     }
 
