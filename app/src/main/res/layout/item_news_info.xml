@@ -11,6 +11,13 @@
         android:layout_height="@dimen/_131sdp"
         android:scaleType="fitXY" />
 
+    <ImageView
+        android:id="@+id/imageMask"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_131sdp"
+        android:src="@drawable/mask_black"
+        android:scaleType="fitXY" />
+
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
