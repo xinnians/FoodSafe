@@ -5,6 +5,7 @@
     <string name="title_news">食安新知</string>
     <string name="title_topic">安食樂驗</string>
     <string name="title_video_area">影音專區</string>
+    <string name="title_farmer">在地小農</string>
 
     <string name="common_zero_result">無符合的商品搜尋結果</string>
 
@@ -20,4 +21,6 @@
     <string name="product_detail_checkDate">送樣/檢驗日期&#160;:&#160;</string>
     <string name="product_detail_category">檢驗標的&#160;:&#160;</string>
     <string name="product_detail_checkItems">檢驗項目&#160;:&#160;</string>
+
+    <string name="guide_disclaimer">免責條款</string>
 </resources>

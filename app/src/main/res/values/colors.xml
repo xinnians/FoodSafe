@@ -18,4 +18,9 @@
     <color name="navigation_default">#A4AAB3</color>
 
     <color name="topic_item_line">#DDDDDD</color>
+
+    <color name="guide_topic">#FF7C7C</color>
+    <color name="guide_farmer">#F1BA39</color>
+    <color name="guide_news">#409BF7</color>
+    <color name="guide_disclaimer">#414141</color>
 </resources>

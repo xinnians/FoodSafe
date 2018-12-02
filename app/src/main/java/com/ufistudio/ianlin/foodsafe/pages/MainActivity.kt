@@ -22,30 +22,29 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
         disableShiftMode(navigation)
 
         var intent = intent
-        var page = Page.INFORMATION
-        var args: Bundle = Bundle()
 
+        var args = intent.extras
+        var page = args.getInt("page")
 //        intent?.let {
 //            page = it.getIntExtra(PAGE,page)
 //            args = it.getBundleExtra(EX)
 //        }
-
-        switchPage(R.id.fragment_container,page,args,true,false)
+        switchPage(page, args)
     }
 
     /**
      * 移除 BottomNavigationView 當item超過3個以上的動畫，以避免非當前item不會顯示title
      */
     @SuppressLint("RestrictedApi")
-    fun disableShiftMode(navigationView: BottomNavigationView){
+    fun disableShiftMode(navigationView: BottomNavigationView) {
         var menuView = navigationView.getChildAt(0) as BottomNavigationMenuView
-        try{
+        try {
             val shiftingMode = menuView::class.java.getDeclaredField("mShiftingMode")
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
+            shiftingMode.isAccessible = true
+            shiftingMode.setBoolean(menuView, false)
+            shiftingMode.isAccessible = false
 
-            for (i in 0..menuView.childCount){
+            for (i in 0..menuView.childCount) {
                 var itemView = menuView.getChildAt(i)?.let {
                     it as BottomNavigationItemView
                 }
@@ -53,9 +52,9 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
                 itemView?.setChecked(itemView.itemData.isChecked)
             }
 
-        }catch (e: NoSuchFieldException) {
+        } catch (e: NoSuchFieldException) {
             e.printStackTrace()
-        }catch (e: IllegalAccessException){
+        } catch (e: IllegalAccessException) {
             e.printStackTrace()
         }
     }
@@ -64,25 +63,43 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
         when (item.itemId) {
             R.id.navigation_information -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.INFORMATION, Bundle(),true,false)
+                switchPage(R.id.fragment_container, Page.INFORMATION, Bundle(), true, false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_news -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.NEWS,Bundle(),true,false)
+                switchPage(R.id.fragment_container, Page.NEWS, Bundle(), true, false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_topics -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.TOPICS,Bundle(),true,false)
+                switchPage(R.id.fragment_container, Page.TOPICS, Bundle(), true, false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_video_area -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.NEWS,Bundle(),true,false)
+                switchPage(R.id.fragment_container, Page.NEWS, Bundle(), true, false)
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
+
+    /**
+     * 切換頁面
+     * @page 傳進來的page代號
+     * @bundle 需要傳遞的bundle
+     */
+    private fun switchPage(page: Int, bundle: Bundle) {
+        var index: Int = 0
+        when (page) {
+            Page.NEWS -> index = 1
+            Page.INFORMATION -> index = 0
+            Page.TOPICS -> index = 2
+        }
+
+        switchPage(R.id.fragment_container, page, bundle, true, false)
+        navigation.menu.getItem(index).isChecked = true
+    }
+
 }
