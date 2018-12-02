@@ -20,4 +20,6 @@
     <string name="product_detail_checkDate">送樣/檢驗日期&#160;:&#160;</string>
     <string name="product_detail_category">檢驗標的&#160;:&#160;</string>
     <string name="product_detail_checkItems">檢驗項目&#160;:&#160;</string>
+
+    <string name="guide_disclaimer">免責條款</string>
 </resources>

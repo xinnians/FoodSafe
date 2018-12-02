@@ -23,15 +23,14 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         disableShiftMode(navigation)
         var intent = intent
-        var page = Page.INFORMATION
-        var args: Bundle = Bundle()
 
+        var args = intent.extras
+        var page = args.getInt("page")
 //        intent?.let {
 //            page = it.getIntExtra(PAGE,page)
 //            args = it.getBundleExtra(EX)
 //        }
-
-        switchPage(R.id.fragment_container, page, args, true, false)
+        switchPage(page, args)
     }
 
     /**
@@ -42,9 +41,9 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
         var menuView = navigationView.getChildAt(0) as BottomNavigationMenuView
         try {
             val shiftingMode = menuView::class.java.getDeclaredField("mShiftingMode")
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
+            shiftingMode.isAccessible = true
+            shiftingMode.setBoolean(menuView, false)
+            shiftingMode.isAccessible = false
 
             for (i in 0..menuView.childCount) {
                 var itemView = menuView.getChildAt(i)?.let {
@@ -92,4 +91,22 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
         }
         false
     }
+
+    /**
+     * 切換頁面
+     * @page 傳進來的page代號
+     * @bundle 需要傳遞的bundle
+     */
+    private fun switchPage(page: Int, bundle: Bundle) {
+        var index: Int = 0
+        when (page) {
+            Page.NEWS -> index = 1
+            Page.INFORMATION -> index = 0
+            Page.TOPICS -> index = 2
+        }
+
+        switchPage(R.id.fragment_container, page, bundle, true, false)
+        navigation.menu.getItem(index).isChecked = true
+    }
+
 }

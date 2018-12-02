@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity(){
 
     override fun onResume() {
         super.onResume()
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, GuideActivity::class.java)
         val timer: Timer = Timer()
         timer.schedule(800L) {startActivity(intent)}
 //        startActivity(intent)

@@ -19,6 +19,10 @@ interface OnPageInteractionListener {
 
     interface Primary : Pane
 
+    interface Guide : Pane{
+        fun goToMain(page:Int)
+    }
+
     interface NewsView {
         fun openWebView(url: String)
     }

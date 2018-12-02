@@ -2,6 +2,7 @@ package com.ufistudio.ianlin.foodsafe.constants
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.ufistudio.ianlin.foodsafe.pages.main.guide.GuideFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.InformationFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.ProductDetailFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListFragment
@@ -29,6 +30,7 @@ object Page {
     const val WEB_VIEW = 2001
 
     const val TEMPORARILY = 3000
+    const val GUIDE = 3001
 
     /*--------------------------------------------------------------------------------------------*/
     /* Helpers */
@@ -46,6 +48,7 @@ object Page {
             TOPICS -> result = TopicsFragment.newInstance()
             WEB_VIEW -> result = WebViewFragment.newInstance()
             TEMPORARILY -> result = TemporarilyFragment.NewInstance()
+            GUIDE-> result =GuideFragment.newInstance()
             else -> throw IllegalArgumentException("No match view! page = $page")
         }
 
