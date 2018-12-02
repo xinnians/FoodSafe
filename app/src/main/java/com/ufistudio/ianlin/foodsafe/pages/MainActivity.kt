@@ -9,6 +9,8 @@ import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.constants.Page
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 import com.ufistudio.ianlin.foodsafe.pages.base.PaneViewActivity
+import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListFragment
+import com.ufistudio.ianlin.foodsafe.pages.main.information.temporarily.TemporarilyFragment
 import com.ufistudio.ianlin.foodsafe.utils.ActivityUtils.clearFragmentBackStack
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,7 +22,6 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         disableShiftMode(navigation)
-
         var intent = intent
         var page = Page.INFORMATION
         var args: Bundle = Bundle()
@@ -30,22 +31,22 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
 //            args = it.getBundleExtra(EX)
 //        }
 
-        switchPage(R.id.fragment_container,page,args,true,false)
+        switchPage(R.id.fragment_container, page, args, true, false)
     }
 
     /**
      * 移除 BottomNavigationView 當item超過3個以上的動畫，以避免非當前item不會顯示title
      */
     @SuppressLint("RestrictedApi")
-    fun disableShiftMode(navigationView: BottomNavigationView){
+    fun disableShiftMode(navigationView: BottomNavigationView) {
         var menuView = navigationView.getChildAt(0) as BottomNavigationMenuView
-        try{
+        try {
             val shiftingMode = menuView::class.java.getDeclaredField("mShiftingMode")
             shiftingMode.setAccessible(true);
             shiftingMode.setBoolean(menuView, false);
             shiftingMode.setAccessible(false);
 
-            for (i in 0..menuView.childCount){
+            for (i in 0..menuView.childCount) {
                 var itemView = menuView.getChildAt(i)?.let {
                     it as BottomNavigationItemView
                 }
@@ -53,9 +54,9 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
                 itemView?.setChecked(itemView.itemData.isChecked)
             }
 
-        }catch (e: NoSuchFieldException) {
+        } catch (e: NoSuchFieldException) {
             e.printStackTrace()
-        }catch (e: IllegalAccessException){
+        } catch (e: IllegalAccessException) {
             e.printStackTrace()
         }
     }
@@ -64,22 +65,28 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
         when (item.itemId) {
             R.id.navigation_information -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.INFORMATION, Bundle(),true,false)
+                switchPage(R.id.fragment_container, Page.INFORMATION, Bundle(), true, false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_news -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.NEWS,Bundle(),true,false)
+                switchPage(R.id.fragment_container, Page.NEWS, Bundle(), true, false)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_topics -> {
+            R.id.navigation_topic -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.TOPICS,Bundle(),true,false)
+                var bundle: Bundle = Bundle()
+                bundle.putInt(TemporarilyFragment.PAGE_POSITION, 1)
+                bundle.putString(TemporarilyFragment.PAGE_TITLE, getString(R.string.title_topic))
+                switchPage(R.id.fragment_container, Page.TEMPORARILY, bundle, true, false)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_video_area -> {
+            R.id.navigation_local_farmer -> {
                 clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container,Page.NEWS,Bundle(),true,false)
+                var bundle: Bundle = Bundle()
+                bundle.putInt(TemporarilyFragment.PAGE_POSITION, 1)
+                bundle.putString(TemporarilyFragment.PAGE_TITLE, getString(R.string.title_local_farmer))
+                switchPage(R.id.fragment_container, Page.TEMPORARILY, bundle, true, false)
                 return@OnNavigationItemSelectedListener true
             }
         }

@@ -19,7 +19,7 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_39sdp"
+        android:layout_height="@dimen/_51sdp"
         android:background="?android:attr/windowBackground"
         app:itemTextColor="@drawable/navigation_color"
         app:itemIconTint="@drawable/navigation_color"

@@ -21,6 +21,7 @@ class ProductDetailFragment : PaneView<OnPageInteractionListener.Primary>() {
         private val TAG = ProductDetailFragment::class.simpleName
 
         const val DETAIL_DATA = "com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.detail_data"
+        private val DATA_EMPTY = "——"
     }
 
     private var mItem: Product? = null
@@ -33,8 +34,8 @@ class ProductDetailFragment : PaneView<OnPageInteractionListener.Primary>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            Log.e(TAG,"arguments : $it")
-            if(it.containsKey(DETAIL_DATA)){
+            Log.e(TAG, "arguments : $it")
+            if (it.containsKey(DETAIL_DATA)) {
                 mItem = arguments?.getParcelable(DETAIL_DATA) as Product
                 mItem?.let { initView(it) }
                 initListener(mItem)
@@ -43,24 +44,66 @@ class ProductDetailFragment : PaneView<OnPageInteractionListener.Primary>() {
     }
 
     private fun initListener(item: Product?) {
-        checkReportLink.setOnClickListener {
-            item?.let {
-                val uri = Uri.parse(it.inspection_reports?.first())
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(intent) }
-        }
+
         btn_back.setOnClickListener { activity?.onBackPressed() }
+
+        item?.let { product ->
+            product.inspection_reports?.let { reports ->
+                if (reports.first().isNotEmpty()) {
+                    checkReportLink.setOnClickListener {
+                        val uri = Uri.parse(reports.first())
+                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                        startActivity(intent)
+                    }
+                    setReportBlockVisibility(View.VISIBLE)
+                    return
+                } else {
+                    setReportBlockVisibility(View.GONE)
+                }
+            }
+        }
+
+        setReportBlockVisibility(View.GONE)
+
     }
 
     private fun initView(item: Product) {
         Glide.with(context).load(item.images?.first()).into(image_product)
         name.text = item.name
-        weight.text = item.description
+        weight.text = item.spec
         category.text = item.category?.name
         company.text = item.company
-        checkDateContent.text = item.inspection_date
-        checkDateContent_again.text = item.inspection_date
-        categoryContent_again.text = item.category?.name
+
+        val inspectionDate = item.inspection_date ?: DATA_EMPTY
+        var inspectionItems = ""
+
+        item.inspection_items?.let { inspection_items ->
+            for (i in 0 until inspection_items.size) {
+                inspectionItems += inspection_items[i]
+                inspectionItems += "\n"
+            }
+        }
+
+        if (inspectionItems.isEmpty()) inspectionItems = DATA_EMPTY
+
+        if (inspectionDate == DATA_EMPTY && inspectionItems == DATA_EMPTY) {
+            setInspectionBlockVisibility(View.GONE)
+        } else {
+            setInspectionBlockVisibility(View.VISIBLE)
+        }
+
+        checkDateContent_again.text = inspectionDate
+        ckeckItemsContent.text = inspectionItems
+
+    }
+
+    private fun setReportBlockVisibility(visibility: Int) {
+        checkReportLink.visibility = visibility
+        block_gray4.visibility = visibility
+    }
+
+    private fun setInspectionBlockVisibility(visibility: Int) {
+        layout_inspection.visibility = visibility
     }
 
 }

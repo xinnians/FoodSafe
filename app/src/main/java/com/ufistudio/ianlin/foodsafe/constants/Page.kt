@@ -7,6 +7,7 @@ import com.ufistudio.ianlin.foodsafe.pages.main.information.productDetail.Produc
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.news.NewsFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.search.SearchFragment
+import com.ufistudio.ianlin.foodsafe.pages.main.information.temporarily.TemporarilyFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.topics.TopicsFragment
 import com.ufistudio.ianlin.foodsafe.utils.views.WebViewFragment
 import java.lang.IllegalArgumentException
@@ -27,6 +28,8 @@ object Page {
 
     const val WEB_VIEW = 2001
 
+    const val TEMPORARILY = 3000
+
     /*--------------------------------------------------------------------------------------------*/
     /* Helpers */
     fun tag(page: Int): String = "page_$page"
@@ -42,6 +45,7 @@ object Page {
             PRODUCT_DETAIL -> result = ProductDetailFragment.NewInstance()
             TOPICS -> result = TopicsFragment.newInstance()
             WEB_VIEW -> result = WebViewFragment.newInstance()
+            TEMPORARILY -> result = TemporarilyFragment.NewInstance()
             else -> throw IllegalArgumentException("No match view! page = $page")
         }
 

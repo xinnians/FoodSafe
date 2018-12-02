@@ -1,6 +1,7 @@
 package com.ufistudio.ianlin.foodsafe.pages.main.information.productList
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.repository.data.Product
 import kotlinx.android.synthetic.main.item_information_list.view.*
+import java.util.logging.Logger
 
 class ProductListAdapter(private val clickListener: (Product) -> Unit) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
@@ -38,8 +40,9 @@ class ProductListAdapter(private val clickListener: (Product) -> Unit) : Recycle
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: Product, clickListener: (Product) -> Unit) {
             Glide.with(itemView.image.context).load(data.images?.first()).into(itemView.image)
+            Log.e("ProductListAdapter","Product:$data")
             itemView.name.text = data.name
-            itemView.weight.text = data.description
+            itemView.weight.text = data.spec
             itemView.category.text = data.category?.name
             itemView.company.text = data.company
             itemView.checkDate.text = data.inspection_date

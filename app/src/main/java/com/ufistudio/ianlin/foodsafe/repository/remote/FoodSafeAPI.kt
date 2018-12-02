@@ -33,7 +33,7 @@ class FoodSafeAPI : RemoteAPI() {
     }
 
     init {
-        val url = "http://120.106.217.51"
+        val url = "https://食安.tw"
         val client = getOkHttpClient()
 
         val retrofit = Retrofit.Builder()

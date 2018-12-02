@@ -2,18 +2,17 @@ package com.ufistudio.ianlin.foodsafe.pages.main.information
 
 import android.app.Activity
 import android.arch.lifecycle.Observer
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.google.firebase.perf.metrics.AddTrace
 import com.ufistudio.ianlin.foodsafe.AppInjector
 import com.ufistudio.ianlin.foodsafe.R
@@ -29,19 +28,20 @@ import yalantis.com.sidemenu.interfaces.ScreenShotable
 import yalantis.com.sidemenu.model.SlideMenuItem
 import yalantis.com.sidemenu.util.ViewAnimator
 
-class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPageInteractionListener.PrimaryView, ViewAnimator.ViewAnimatorListener,ScreenShotable {
+class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPageInteractionListener.PrimaryView, ViewAnimator.ViewAnimatorListener, ScreenShotable {
 
     private lateinit var mViewModel: InformationViewModel
     private lateinit var mPagerAdapter: InformationPagerAdapter
     private lateinit var mViewAnimator: ViewAnimator<SlideMenuItem>
     private var mBitmap: Bitmap? = null
+    private var mActionBarDrawerToggle: ActionBarDrawerToggle? = null
+    private var mSelectPosition = 1
 
     companion object {
         fun NewInstance(): InformationFragment = InformationFragment()
         private val TAG = InformationFragment::class.simpleName
     }
 
-    @AddTrace(name = "onCreateTrace", enabled = true)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,50 +65,68 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
         initListener()
         drawer_layout.setScrimColor(Color.TRANSPARENT)
         left_drawer.setOnClickListener { drawer_layout.closeDrawers() }
-        val menuItem: SlideMenuItem = SlideMenuItem("test", R.drawable.btn_nav_back)
-        var list = java.util.ArrayList<SlideMenuItem>()
-        for(i in 1..6){
-            list.add(menuItem)
+        var list = arrayListOf(
+                SlideMenuItem("close", R.drawable.btn_menu_close),
+                SlideMenuItem("0", R.drawable.btn_menu_flour),
+                SlideMenuItem("1", R.drawable.btn_menu_rice),
+                SlideMenuItem("2", R.drawable.btn_menu_noodles),
+                SlideMenuItem("3", R.drawable.btn_menu_oil),
+                SlideMenuItem("4", R.drawable.btn_menu_dairy),
+                SlideMenuItem("5", R.drawable.btn_menu_egg))
+
+        mActionBarDrawerToggle?.let { drawer_layout.addDrawerListener(it) }
+        mViewAnimator = ViewAnimator(activity as AppCompatActivity, list, this, drawer_layout, this)
+    }
+
+    private fun initListener() {
+        search_bar_start.setOnClickListener {
+            addPage(Page.SEARCH, Bundle(), true)
         }
-        drawer_layout.addDrawerListener(object : ActionBarDrawerToggle(activity as Activity,drawer_layout,R.string.app_name,R.string.app_name){
+        btn_nav_menu.setOnClickListener {
+            //            mViewAnimator.showMenuContent()
+            drawer_layout.openDrawer(Gravity.LEFT)
+        }
+
+        mActionBarDrawerToggle = object : ActionBarDrawerToggle(activity as Activity, drawer_layout, R.string.app_name, R.string.app_name) {
             override fun onDrawerClosed(drawerView: View) {
                 super.onDrawerClosed(drawerView)
-                Log.e(TAG,"onDrawerClosed")
+                Log.e(TAG, "onDrawerClosed")
                 left_drawer.removeAllViews()
                 left_drawer.invalidate()
             }
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
-                Log.e(TAG,"onDrawerSlide")
-                if(slideOffset > 0.6 && left_drawer.childCount == 0){
-                    Log.e(TAG,"onDrawerSlide:slideOffset > 0.6 && left_drawer.childCount == 0")
-                    mViewAnimator.showMenuContent()
+                Log.e(TAG, "onDrawerSlide")
+                if (slideOffset > 0.6 && left_drawer.childCount == 0) {
+                    Log.e(TAG, "onDrawerSlide:slideOffset > 0.6 && left_drawer.childCount == 0")
+                    mViewAnimator.showMenuContent(mSelectPosition)
                 }
             }
 
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
-                Log.e(TAG,"onDrawerOpened")
+                Log.e(TAG, "onDrawerOpened")
             }
-        })
-        mViewAnimator = ViewAnimator(activity as AppCompatActivity,list,this,drawer_layout,this)
-    }
-
-    private fun initListener() {
-        search_bar_start.setOnClickListener {
-//            addPage(Page.SEARCH, Bundle(), true) }
-            Log.e(TAG,"search_bar_start click")
-//            mViewAnimator.showMenuContent()
-            drawer_layout.openDrawer(Gravity.LEFT)
         }
-        tabView.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewPager))
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabView))
     }
 
     private fun initViewPager() {
         mPagerAdapter = InformationPagerAdapter(childFragmentManager)
         viewPager.adapter = mPagerAdapter
+        viewPager.setOnDragListener { v, event -> false }
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                mSelectPosition = position + 1
+            }
+
+        })
     }
 
     override fun pressBack() {
@@ -128,7 +146,7 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
 
     private fun onQueryCategoryListSuccess(list: ArrayList<Category>) {
         Log.d(TAG, "onQueryCategoryListSuccess call. ${list.size}")
-        for (item in list) tabView.addTab(tabView.newTab().setText(item.name))
+//        for (item in list) tabView.addTab(tabView.newTab().setText(item.name))
         mPagerAdapter.setItems(list)
     }
 
@@ -148,6 +166,18 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
         Log.e(TAG, "onQueryCategoryListError call. ${throwable.message}")
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        mActionBarDrawerToggle?.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (mActionBarDrawerToggle?.onOptionsItemSelected(item) == true) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun disableHomeButton() {
     }
 
@@ -160,24 +190,24 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
     }
 
     override fun onSwitch(slideMenuItem: Resourceble?, screenShotable: ScreenShotable?, position: Int): ScreenShotable {
+        when (slideMenuItem?.name) {
+            "close" -> return screenShotable!!
+            "0" -> viewPager.setCurrentItem(0, true)
+            "1" -> viewPager.setCurrentItem(1, true)
+            "2" -> viewPager.setCurrentItem(2, true)
+            "3" -> viewPager.setCurrentItem(3, true)
+            "4" -> viewPager.setCurrentItem(4, true)
+            "5" -> viewPager.setCurrentItem(5, true)
+            else -> return screenShotable!!
+        }
+
         return screenShotable!!
     }
 
     override fun getBitmap(): Bitmap = mBitmap!!
 
     override fun takeScreenShot() {
-//        val thread = object : Thread() {
-//            override fun run() {
-//                val bitmap = Bitmap.createBitmap(container_frame.width,
-//                        container_frame.height, Bitmap.Config.ARGB_8888)
-//                val canvas = Canvas(bitmap)
-//                container_frame.draw(canvas)
-//                mBitmap = bitmap
-//            }
-//        }
-//        thread.start()
-
-        container_frame.run{
+        container_frame.run {
             val bitmap = Bitmap.createBitmap(container_frame.width,
                     container_frame.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
