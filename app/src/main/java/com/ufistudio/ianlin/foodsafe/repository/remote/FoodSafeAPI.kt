@@ -19,6 +19,7 @@ class FoodSafeAPI : RemoteAPI() {
 
         //一頁的listView顯示幾個，之後應由後台做設定
         private const val LISTVIEW_PAGECOUNT = 10
+        private val SEARCH_JOIN_WORD = "and"
 
         fun getInstance(): FoodSafeAPI? {
             if (sInstance == null) {
@@ -52,7 +53,7 @@ class FoodSafeAPI : RemoteAPI() {
 
     fun categoryList(): Single<CategoryResponse> = mService.getCategory()
 
-    fun productList(field: String, search: String, page: Int): Single<ProductResponse> = mService.getProductList(field, search, LISTVIEW_PAGECOUNT, page)
+    fun productList(field: String, search: String, page: Int): Single<ProductResponse> = mService.getProductList(SEARCH_JOIN_WORD, field, search, LISTVIEW_PAGECOUNT, page)
 
     fun newsInfoList(page: Int): Single<NewsResponse> = mService.getNewsInfo(page)
 

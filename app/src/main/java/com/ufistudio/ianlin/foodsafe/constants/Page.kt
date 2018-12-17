@@ -26,6 +26,7 @@ object Page {
     const val SEARCH = 1004
     const val PRODUCT_DETAIL = 1005
     const val TOPICS = 1006
+    const val LOCAL_FARMER = 1007
 
     const val WEB_VIEW = 2001
 
@@ -45,7 +46,8 @@ object Page {
             NEWS -> result = NewsFragment.newInstance()
             SEARCH -> result = SearchFragment.NewInstance()
             PRODUCT_DETAIL -> result = ProductDetailFragment.NewInstance()
-            TOPICS -> result = TopicsFragment.newInstance()
+            TOPICS -> result = InformationFragment.NewInstance()
+            LOCAL_FARMER -> result = InformationFragment.NewInstance()
             WEB_VIEW -> result = WebViewFragment.newInstance()
             TEMPORARILY -> result = TemporarilyFragment.NewInstance()
             GUIDE-> result =GuideFragment.newInstance()

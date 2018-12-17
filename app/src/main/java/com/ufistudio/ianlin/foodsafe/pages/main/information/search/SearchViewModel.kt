@@ -28,13 +28,17 @@ class SearchViewModel(application: Application,
     val queryProductListProgress = MutableLiveData<Boolean>()
     val queryProductListError = MutableLiveData<Throwable>()
 
-    fun getSearchHistoryList() {
+    companion object {
+        val TAG = SearchViewModel::class.simpleName
+    }
+
+    fun getSearchHistoryList(dataType: String) {
         if (mSearchHistoryList != null) {
             getSearchHistoryProgress.value = false
             getSearchHistorySuccess.value = mSearchHistoryList
             return
         }
-        repository.getSearchHistoryList()
+        repository.getSearchHistoryList(dataType)
                 ?.delay(1, TimeUnit.SECONDS)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
@@ -46,23 +50,27 @@ class SearchViewModel(application: Application,
                 }, { getSearchHistoryError.value = it })?.let { compositeDisposable.add(it) }
     }
 
-    private fun saveSearchHistoryList(keyword: String) {
+    private fun saveSearchHistoryList(keyword: String, dataType: String) {
+        Log.e(TAG,"[saveSearchHistoryList] keyword:$keyword, dataType:$dataType")
         if (mSearchHistoryList == null)
             mSearchHistoryList = ArrayList()
 
         mSearchHistoryList = mSearchHistoryList?.let {
-            it.add(0, keyword)
+            if((it.size > 0 && it[0] != keyword) || it.size == 0){
+                it.add(0, keyword)
+            }
             if (it.size > 20) {
                 ArrayList(it.subList(0, 20))
             } else it
         }
-        repository.saveSearchHistoryList(mSearchHistoryList!!)
+        repository.saveSearchHistoryList(mSearchHistoryList!!, dataType)
         getSearchHistorySuccess.value = mSearchHistoryList
     }
 
-    fun queryProductList(keyword: String, page: Int = 1) {
-        saveSearchHistoryList(keyword)
-        compositeDisposable.add(repository.getProduct(keyword, page)
+    fun queryProductList(keyword: String, page: Int = 1, dataType: String) {
+        Log.e(TAG,"[queryProductList] keyword:$keyword, dataType:$dataType, page:$page")
+        saveSearchHistoryList(keyword, dataType)
+        compositeDisposable.add(repository.getProduct(keyword, page, dataType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { if (page == 1) queryProductListProgress.value = true }
                 .doFinally { if (page == 1) queryProductListProgress.value = false }

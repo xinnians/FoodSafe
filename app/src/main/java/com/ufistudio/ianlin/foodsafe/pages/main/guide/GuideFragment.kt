@@ -63,7 +63,7 @@ class GuideFragment : PaneView<OnPageInteractionListener.Guide>(), View.OnClickL
 
         when (v) {
             item_topic -> page = Page.TOPICS
-            item_farmer -> page = Page.NEWS
+            item_farmer -> page = Page.LOCAL_FARMER
             item_info -> page = Page.INFORMATION
             item_news -> page = Page.NEWS
         }

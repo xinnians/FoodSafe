@@ -25,13 +25,20 @@ class Repository(private var application: Application, private val sharedPrefere
         return FoodSafeAPI.getInstance()!!.categoryList()
     }
 
-    fun getProduct(search: Any, page: Int = 1): Single<ProductResponse> {
-        val searchFields = when (search) {
-            is Int -> "category_id:"
-            is String -> "name:"
-            else -> "name:"
+    fun getProduct(search: Any, page: Int = 1, dataType: String = ""): Single<ProductResponse> {
+        val searchFields: String
+
+        return when (search) {
+            is Int -> {
+                searchFields = "category_id:"
+                FoodSafeAPI.getInstance()!!.productList(searchFields.plus("like"), searchFields.plus(search), page)
+            }
+            else -> {
+                searchFields = "category.type:=;name:"
+                FoodSafeAPI.getInstance()!!.productList(searchFields.plus("like"), "category.type:$dataType;name:$search", page)
+            }
         }
-        return FoodSafeAPI.getInstance()!!.productList(searchFields.plus("like"), searchFields.plus(search), page)
+
     }
 
     fun getNewsInfo(page: Int): Single<NewsResponse> {
@@ -44,14 +51,14 @@ class Repository(private var application: Application, private val sharedPrefere
 
     // local
 
-    fun getSearchHistoryList(): Single<ArrayList<String>>? {
-        val jsonString = sharedPreferencesProvider.sharedPreferences().getString(PreferencesKey.SEARCH_HISTORY, "")
+    fun getSearchHistoryList(dataType: String): Single<ArrayList<String>>? {
+        val jsonString = sharedPreferencesProvider.sharedPreferences().getString(PreferencesKey.SEARCH_HISTORY + dataType, "")
         return Single.just(MiscUtils.parseJSONList(jsonString))
     }
 
-    fun saveSearchHistoryList(list: ArrayList<String>?) {
+    fun saveSearchHistoryList(list: ArrayList<String>?, dataType: String) {
         val jsonString = MiscUtils.toJSONString(list)
-        sharedPreferencesProvider.sharedPreferences().edit().putString(SEARCH_HISTORY, jsonString).apply()
+        sharedPreferencesProvider.sharedPreferences().edit().putString(SEARCH_HISTORY + dataType, jsonString).apply()
     }
 
 }

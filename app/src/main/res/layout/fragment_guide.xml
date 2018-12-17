@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/searchBarBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,7 +35,8 @@
         android:layout_height="@dimen/_152sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:background="@color/tiffanyBlue"
+        android:background="@drawable/bg_guide_item_tiffany_blue"
+        android:elevation="@dimen/_3sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line"
         tools:ignore="MissingConstraints">
@@ -68,7 +70,8 @@
         android:layout_height="@dimen/_152sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_17sdp"
-        android:background="@color/guide_farmer"
+        android:background="@drawable/bg_guide_item_farmer"
+        android:elevation="@dimen/_3sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_info">
 
@@ -100,7 +103,8 @@
         android:layout_height="@dimen/_152sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:background="@color/guide_topic"
+        android:background="@drawable/bg_guide_item_topic"
+        android:elevation="@dimen/_3sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line">
 
@@ -132,7 +136,8 @@
         android:layout_height="@dimen/_152sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_17sdp"
-        android:background="@color/guide_news"
+        android:background="@drawable/bg_guide_item_news"
+        android:elevation="@dimen/_3sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_topic"
         tools:ignore="MissingConstraints">
@@ -211,6 +216,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:scrollbars="vertical"
         android:textColor="@color/lightGray"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

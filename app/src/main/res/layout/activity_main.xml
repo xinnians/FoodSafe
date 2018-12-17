@@ -11,21 +11,170 @@
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bottomBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_51sdp"
-        android:background="?android:attr/windowBackground"
-        app:itemTextColor="@drawable/navigation_color"
-        app:itemIconTint="@drawable/navigation_color"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_52sdp"
+        android:background="@color/searchBarBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        app:layout_constraintRight_toRightOf="parent">
+
+        <View
+            android:id="@+id/grayline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/information_item_border"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_information"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_51sdp"
+            app:layout_constraintWidth_percent=".25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/view_icon_information"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent=".5"
+                app:layout_constraintHeight_percent=".75"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/navigation_item_information" />
+
+            <TextView
+                android:id="@+id/text_title_information"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".25"
+                android:text="@string/title_information"
+                android:textSize="@dimen/_8ssp"
+                android:gravity="center|top"
+                android:textColor="@color/tiffanyBlue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_icon_information" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_topic"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_51sdp"
+            app:layout_constraintWidth_percent=".25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_information">
+
+            <ImageView
+                android:id="@+id/view_icon_topic"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent=".5"
+                app:layout_constraintHeight_percent=".75"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/navigation_item_topic" />
+
+            <TextView
+                android:id="@+id/text_title_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".25"
+                android:text="@string/title_topic"
+                android:textSize="@dimen/_8ssp"
+                android:gravity="center|top"
+                android:textColor="@color/guide_topic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_icon_topic" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_local_farmer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_51sdp"
+            app:layout_constraintWidth_percent=".25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_topic">
+
+            <ImageView
+                android:id="@+id/view_icon_local_farmer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent=".5"
+                app:layout_constraintHeight_percent=".75"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/navigation_item_local_farmer" />
+
+            <TextView
+                android:id="@+id/text_title_local_farmer"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".25"
+                android:text="@string/title_local_farmer"
+                android:textSize="@dimen/_8ssp"
+                android:gravity="center|top"
+                android:textColor="@color/guide_farmer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_icon_local_farmer" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_news"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_51sdp"
+            app:layout_constraintWidth_percent=".25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_local_farmer">
+
+            <ImageView
+                android:id="@+id/view_icon_news"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent=".5"
+                app:layout_constraintHeight_percent=".75"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/navigation_item_news" />
+
+            <TextView
+                android:id="@+id/text_title_news"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent=".25"
+                android:text="@string/title_news"
+                android:textSize="@dimen/_8ssp"
+                android:gravity="center|top"
+                android:textColor="@color/guide_news"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_icon_news" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

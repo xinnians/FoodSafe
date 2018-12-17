@@ -5,23 +5,25 @@ import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.view.View
 import com.ufistudio.ianlin.foodsafe.R
+import com.ufistudio.ianlin.foodsafe.constants.Constants
 import com.ufistudio.ianlin.foodsafe.constants.Page
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 import com.ufistudio.ianlin.foodsafe.pages.base.PaneViewActivity
+import com.ufistudio.ianlin.foodsafe.pages.main.information.InformationFragment.Companion.PAGE_TYPE
 import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductListFragment
 import com.ufistudio.ianlin.foodsafe.pages.main.information.temporarily.TemporarilyFragment
 import com.ufistudio.ianlin.foodsafe.utils.ActivityUtils.clearFragmentBackStack
 import kotlinx.android.synthetic.main.activity_main.*
+import yalantis.com.sidemenu.model.SlideMenuItem
 
 class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        disableShiftMode(navigation)
+        init()
         var intent = intent
 
         var args = intent.extras
@@ -33,63 +35,42 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
         switchPage(page, args)
     }
 
-    /**
-     * 移除 BottomNavigationView 當item超過3個以上的動畫，以避免非當前item不會顯示title
-     */
-    @SuppressLint("RestrictedApi")
-    fun disableShiftMode(navigationView: BottomNavigationView) {
-        var menuView = navigationView.getChildAt(0) as BottomNavigationMenuView
-        try {
-            val shiftingMode = menuView::class.java.getDeclaredField("mShiftingMode")
-            shiftingMode.isAccessible = true
-            shiftingMode.setBoolean(menuView, false)
-            shiftingMode.isAccessible = false
+    private fun init(){
 
-            for (i in 0..menuView.childCount) {
-                var itemView = menuView.getChildAt(i)?.let {
-                    it as BottomNavigationItemView
-                }
-                itemView?.setShiftingMode(false)
-                itemView?.setChecked(itemView.itemData.isChecked)
-            }
+        layout_information.setOnClickListener {
+            clearFragmentBackStack(supportFragmentManager)
+            val bundle: Bundle = Bundle()
+            bundle.putString(PAGE_TYPE, Constants.DataType.products.toString())
+            switchPage(R.id.fragment_container, Page.INFORMATION, bundle, true, false)
+            setButtonClick(view_icon_information)}
 
-        } catch (e: NoSuchFieldException) {
-            e.printStackTrace()
-        } catch (e: IllegalAccessException) {
-            e.printStackTrace()
-        }
-    }
+        layout_topic.setOnClickListener {
+            clearFragmentBackStack(supportFragmentManager)
+//            var bundle: Bundle = Bundle()
+//            bundle.putInt(TemporarilyFragment.PAGE_POSITION, 1)
+//            bundle.putString(TemporarilyFragment.PAGE_TITLE, getString(R.string.title_topic))
+//            switchPage(R.id.fragment_container, Page.TEMPORARILY, bundle, true, false)
+            val bundle: Bundle = Bundle()
+            bundle.putString(PAGE_TYPE, Constants.DataType.goods.toString())
+            switchPage(R.id.fragment_container, Page.INFORMATION, bundle, true, false)
+            setButtonClick(view_icon_topic)}
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_information -> {
-                clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container, Page.INFORMATION, Bundle(), true, false)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_news -> {
-                clearFragmentBackStack(supportFragmentManager)
-                switchPage(R.id.fragment_container, Page.NEWS, Bundle(), true, false)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_topic -> {
-                clearFragmentBackStack(supportFragmentManager)
-                var bundle: Bundle = Bundle()
-                bundle.putInt(TemporarilyFragment.PAGE_POSITION, 1)
-                bundle.putString(TemporarilyFragment.PAGE_TITLE, getString(R.string.title_topic))
-                switchPage(R.id.fragment_container, Page.TEMPORARILY, bundle, true, false)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_local_farmer -> {
-                clearFragmentBackStack(supportFragmentManager)
-                var bundle: Bundle = Bundle()
-                bundle.putInt(TemporarilyFragment.PAGE_POSITION, 1)
-                bundle.putString(TemporarilyFragment.PAGE_TITLE, getString(R.string.title_local_farmer))
-                switchPage(R.id.fragment_container, Page.TEMPORARILY, bundle, true, false)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
+        layout_local_farmer.setOnClickListener {
+            clearFragmentBackStack(supportFragmentManager)
+//            var bundle: Bundle = Bundle()
+//            bundle.putInt(TemporarilyFragment.PAGE_POSITION, 1)
+//            bundle.putString(TemporarilyFragment.PAGE_TITLE, getString(R.string.title_local_farmer))
+//            switchPage(R.id.fragment_container, Page.TEMPORARILY, bundle, true, false)
+            val bundle: Bundle = Bundle()
+            bundle.putString(PAGE_TYPE, Constants.DataType.local.toString())
+            switchPage(R.id.fragment_container, Page.INFORMATION, bundle, true, false)
+            setButtonClick(view_icon_local_farmer)}
+
+        layout_news.setOnClickListener {
+            clearFragmentBackStack(supportFragmentManager)
+            switchPage(R.id.fragment_container, Page.NEWS, Bundle(), true, false)
+            setButtonClick(view_icon_news)}
+
     }
 
     /**
@@ -98,15 +79,33 @@ class MainActivity : PaneViewActivity(), OnPageInteractionListener.Primary {
      * @bundle 需要傳遞的bundle
      */
     private fun switchPage(page: Int, bundle: Bundle) {
-        var index: Int = 0
         when (page) {
-            Page.NEWS -> index = 1
-            Page.INFORMATION -> index = 0
-            Page.TOPICS -> index = 2
+            Page.NEWS -> setButtonClick(view_icon_news)
+            Page.INFORMATION -> {
+                setButtonClick(view_icon_information)
+                bundle.putString(PAGE_TYPE, Constants.DataType.products.toString())
+            }
+            Page.TOPICS -> {
+                setButtonClick(view_icon_topic)
+                bundle.putString(PAGE_TYPE, Constants.DataType.goods.toString())
+            }
+            Page.LOCAL_FARMER -> {
+                setButtonClick(view_icon_local_farmer)
+                bundle.putString(PAGE_TYPE, Constants.DataType.local.toString())
+            }
         }
 
+
+
         switchPage(R.id.fragment_container, page, bundle, true, false)
-        navigation.menu.getItem(index).isChecked = true
+
+    }
+
+    private fun setButtonClick(view: View){
+        view_icon_information.setImageResource(if(view == view_icon_information) R.drawable.btn_data_act else R.drawable.btn_data_pas)
+        view_icon_topic.setImageResource(if(view == view_icon_topic) R.drawable.btn_safe_act else R.drawable.btn_safe_pas)
+        view_icon_local_farmer.setImageResource(if(view == view_icon_local_farmer) R.drawable.btn_farm_act else R.drawable.btn_farm_pas)
+        view_icon_news.setImageResource(if(view == view_icon_news) R.drawable.btn_news_act else R.drawable.btn_news_pas)
     }
 
 }

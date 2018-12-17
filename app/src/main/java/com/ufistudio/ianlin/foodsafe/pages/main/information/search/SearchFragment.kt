@@ -1,6 +1,7 @@
 package com.ufistudio.ianlin.foodsafe.pages.main.information.search
 
 import android.arch.lifecycle.Observer
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -11,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import com.ufistudio.ianlin.foodsafe.AppInjector
 import com.ufistudio.ianlin.foodsafe.R
 import com.ufistudio.ianlin.foodsafe.componets.EndLessOnScrollListener
@@ -23,12 +23,17 @@ import com.ufistudio.ianlin.foodsafe.pages.main.information.productList.ProductL
 import com.ufistudio.ianlin.foodsafe.repository.data.Product
 import com.ufistudio.ianlin.foodsafe.repository.data.ProductList
 import kotlinx.android.synthetic.main.fragment_search.*
+import android.view.inputmethod.InputMethodManager
+import com.ufistudio.ianlin.foodsafe.constants.Constants
+import com.ufistudio.ianlin.foodsafe.pages.main.information.InformationFragment
+
 
 class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
 
     private lateinit var mHistoryAdapter: SearchHistoryAdapter
     private lateinit var mResultAdapter: ProductListAdapter
     private lateinit var mViewModel: SearchViewModel
+    private var mType: String = Constants.DataType.products.toString()
 
     companion object {
         fun NewInstance(): SearchFragment = SearchFragment()
@@ -37,6 +42,8 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mType = arguments?.getString(InformationFragment.PAGE_TYPE) ?: ""
 
         mViewModel = AppInjector.obtainViewModel(this)
 
@@ -78,7 +85,7 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
         // Clear Button - clear editText's text
         search_bar_clearText.setOnClickListener {
             editText.text.clear()
-            mViewModel.getSearchHistoryList()
+            mViewModel.getSearchHistoryList(mType)
         }
         // editText's action
         editText.addTextChangedListener(object : TextWatcher {
@@ -98,7 +105,11 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
         })
         editText.setOnEditorActionListener { v, actionId, _ ->
             when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> mViewModel.queryProductList(v?.text.toString())
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    mViewModel.queryProductList(v?.text.toString(),dataType = mType)
+                    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view?.windowToken, 0)
+                }
             }
             true
         }
@@ -109,7 +120,7 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
         list_history.layoutManager = GridLayoutManager(context, 2)
         mHistoryAdapter = SearchHistoryAdapter { data: String -> onHistoryItemClick(data) }
         list_history.adapter = mHistoryAdapter
-        mViewModel.getSearchHistoryList()
+        mViewModel.getSearchHistoryList(mType)
 
         // result's view
         list_result.layoutManager = LinearLayoutManager(context)
@@ -118,11 +129,11 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
         list_result.addOnScrollListener(object : EndLessOnScrollListener(list_result.layoutManager as LinearLayoutManager) {
             override fun onLoadMore(currentPage: Int) {
                 Log.e(TAG, "[onLoadMore] currentPage:$currentPage")
-                mViewModel.queryProductList(editText.text.toString(), currentPage)
+                mViewModel.queryProductList(editText.text.toString(), currentPage,mType)
             }
         })
         layout_swipe_refresh.setOnRefreshListener {
-            mViewModel.queryProductList(editText.text.toString())
+            mViewModel.queryProductList(editText.text.toString(),dataType = mType)
             layout_swipe_refresh.isRefreshing = false
         }
     }
@@ -136,10 +147,11 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
     // call search api
     private fun onHistoryItemClick(keyword: String) {
         editText.setText(keyword)
-        mViewModel.queryProductList(keyword)
+        mViewModel.queryProductList(keyword,dataType = mType)
     }
 
     private fun onGetSearchHistorySuccess(list: ArrayList<String>) {
+        Log.e(TAG,"[onGetSearchHistorySuccess] list:$list")
         mHistoryAdapter.setItems(list)
     }
 

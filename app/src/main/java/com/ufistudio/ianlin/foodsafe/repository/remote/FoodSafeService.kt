@@ -14,7 +14,8 @@ interface FoodSafeService {
     fun getCategory(): Single<CategoryResponse>
 
     @GET("api/products")
-    fun getProductList(@Query("searchFields") searchFields: String,
+    fun getProductList(@Query("searchJoin") searchJoin: String,
+                       @Query("searchFields") searchFields: String,
                        @Query("search") name: String,
                        @Query("limit") limit: Int,
                        @Query("page") page: Int): Single<ProductResponse>

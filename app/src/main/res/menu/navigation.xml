@@ -4,7 +4,8 @@
     <item
         android:id="@+id/navigation_information"
         android:icon="@drawable/btn_data_pas"
-        android:title="@string/title_information" />
+        android:title="@string/title_information"
+        android:iconTintMode="screen"/>
 
     <item
         android:id="@+id/navigation_local_farmer"

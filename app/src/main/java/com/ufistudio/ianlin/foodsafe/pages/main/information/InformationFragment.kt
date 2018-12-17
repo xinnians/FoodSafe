@@ -7,15 +7,15 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.*
-import com.google.firebase.perf.metrics.AddTrace
 import com.ufistudio.ianlin.foodsafe.AppInjector
 import com.ufistudio.ianlin.foodsafe.R
+import com.ufistudio.ianlin.foodsafe.constants.Constants
 import com.ufistudio.ianlin.foodsafe.constants.Page
 import com.ufistudio.ianlin.foodsafe.pages.base.OnPageInteractionListener
 import com.ufistudio.ianlin.foodsafe.pages.base.PaneView
@@ -36,14 +36,18 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
     private var mBitmap: Bitmap? = null
     private var mActionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var mSelectPosition = 1
+    private var mType: String = Constants.DataType.products.toString()
 
     companion object {
         fun NewInstance(): InformationFragment = InformationFragment()
         private val TAG = InformationFragment::class.simpleName
+        const val PAGE_TYPE = "com.example.ianlin.mvvmian.pages.main.information.page_type"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mType = arguments?.getString(PAGE_TYPE) ?: ""
 
         mViewModel = AppInjector.obtainViewModel(this)
 
@@ -65,22 +69,25 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
         initListener()
         drawer_layout.setScrimColor(Color.TRANSPARENT)
         left_drawer.setOnClickListener { drawer_layout.closeDrawers() }
-        var list = arrayListOf(
-                SlideMenuItem("close", R.drawable.btn_menu_close),
-                SlideMenuItem("0", R.drawable.btn_menu_flour),
-                SlideMenuItem("1", R.drawable.btn_menu_rice),
-                SlideMenuItem("2", R.drawable.btn_menu_noodles),
-                SlideMenuItem("3", R.drawable.btn_menu_oil),
-                SlideMenuItem("4", R.drawable.btn_menu_dairy),
-                SlideMenuItem("5", R.drawable.btn_menu_egg))
-
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         mActionBarDrawerToggle?.let { drawer_layout.addDrawerListener(it) }
-        mViewAnimator = ViewAnimator(activity as AppCompatActivity, list, this, drawer_layout, this)
+        mViewAnimator = ViewAnimator(activity as AppCompatActivity, getConformSlideMenuItems(mType), this, drawer_layout, this)
+
+        val title = when (mType) {
+            Constants.DataType.products.toString() -> getString(R.string.title_information)
+            Constants.DataType.goods.toString() -> getString(R.string.title_topic)
+            Constants.DataType.local.toString() -> getString(R.string.title_local_farmer)
+            else -> getString(R.string.title_information)
+        }
+
+        search_bar_title.text = title
     }
 
     private fun initListener() {
         search_bar_start.setOnClickListener {
-            addPage(Page.SEARCH, Bundle(), true)
+            val bundle: Bundle = Bundle()
+            bundle.putString(PAGE_TYPE, mType)
+            addPage(Page.SEARCH, bundle, true)
         }
         btn_nav_menu.setOnClickListener {
             //            mViewAnimator.showMenuContent()
@@ -107,6 +114,11 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
                 Log.e(TAG, "onDrawerOpened")
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                super.onDrawerStateChanged(newState)
+                Log.e(TAG, "onDrawerStateChanged:$newState")
             }
         }
     }
@@ -147,7 +159,15 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
     private fun onQueryCategoryListSuccess(list: ArrayList<Category>) {
         Log.d(TAG, "onQueryCategoryListSuccess call. ${list.size}")
 //        for (item in list) tabView.addTab(tabView.newTab().setText(item.name))
-        mPagerAdapter.setItems(list)
+
+        val categoryList: ArrayList<Category> = arrayListOf()
+
+        list.filter { category -> category.type == mType }
+                .forEach { categoryList.add(it) }
+
+        Log.d(TAG, "list filter result: $categoryList")
+
+        mPagerAdapter.setItems(categoryList)
     }
 
     private fun onQueryCategoryListProgress(isProgress: Boolean) {
@@ -213,6 +233,36 @@ class InformationFragment : PaneView<OnPageInteractionListener.Primary>(), OnPag
             val canvas = Canvas(bitmap)
             container_frame.draw(canvas)
             mBitmap = bitmap
+        }
+    }
+
+    private fun getConformSlideMenuItems(type: String): ArrayList<SlideMenuItem> {
+
+        Log.e(TAG, "getConformSlideMenuItems : $type")
+
+        return when (type) {
+            Constants.DataType.products.toString() ->
+                arrayListOf(SlideMenuItem("close", R.drawable.btn_menu_close),
+                        SlideMenuItem("0", R.drawable.btn_menu_flour),
+                        SlideMenuItem("1", R.drawable.btn_menu_rice),
+                        SlideMenuItem("2", R.drawable.btn_menu_noodles),
+                        SlideMenuItem("3", R.drawable.btn_menu_oil),
+                        SlideMenuItem("4", R.drawable.btn_menu_dairy),
+                        SlideMenuItem("5", R.drawable.btn_menu_egg))
+            Constants.DataType.goods.toString() ->
+                arrayListOf(SlideMenuItem("close", R.drawable.btn_menu_close),
+                        SlideMenuItem("0", R.drawable.btn_menu_vegetables),
+                        SlideMenuItem("1", R.drawable.btn_menu_wheat),
+                        SlideMenuItem("2", R.drawable.btn_menu_seasoning),
+                        SlideMenuItem("3", R.drawable.btn_menu_drink),
+                        SlideMenuItem("4", R.drawable.btn_menu_snack),
+                        SlideMenuItem("5", R.drawable.btn_menu_functional))
+            Constants.DataType.local.toString() ->
+                arrayListOf(SlideMenuItem("close", R.drawable.btn_menu_close),
+                        SlideMenuItem("0", R.drawable.btn_menu_vegetables),
+                        SlideMenuItem("1", R.drawable.btn_menu_snack),
+                        SlideMenuItem("2", R.drawable.btn_menu_wheat))
+            else -> ArrayList()
         }
     }
 }
