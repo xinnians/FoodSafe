@@ -23,4 +23,6 @@
     <color name="guide_farmer">#F1BA39</color>
     <color name="guide_news">#409BF7</color>
     <color name="guide_disclaimer">#414141</color>
+
+    <color name="default_image_bg">#fafafa</color>
 </resources>
