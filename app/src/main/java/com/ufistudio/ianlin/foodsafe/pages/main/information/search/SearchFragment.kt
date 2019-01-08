@@ -152,6 +152,7 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
 
     private fun onGetSearchHistorySuccess(list: ArrayList<String>) {
         Log.e(TAG,"[onGetSearchHistorySuccess] list:$list")
+        recent_search.visibility = if(list.size == 0) View.INVISIBLE else View.VISIBLE
         mHistoryAdapter.setItems(list)
     }
 
