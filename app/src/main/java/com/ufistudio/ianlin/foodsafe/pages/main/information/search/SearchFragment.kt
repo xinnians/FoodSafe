@@ -193,6 +193,7 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
             progressBar.visibility = View.VISIBLE
             list_result.visibility = View.INVISIBLE
             text_result.visibility = View.INVISIBLE
+            text_zero_result.visibility = View.INVISIBLE
         } else {
             progressBar.visibility = View.INVISIBLE
         }
@@ -200,5 +201,8 @@ class SearchFragment : PaneView<OnPageInteractionListener.Primary>() {
 
     private fun onQueryProductListError(throwable: Throwable) {
         Log.e(TAG, "onQueryProductListError call. ${throwable.message}")
+        text_result.visibility = View.INVISIBLE
+        list_result.visibility = View.INVISIBLE
+        text_zero_result.visibility = View.VISIBLE
     }
 }
