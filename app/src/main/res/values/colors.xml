@@ -4,12 +4,13 @@
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="background">#ffffff</color>
+    <color name="background">#FCF2DA</color>
     <color name="transparent">#00000000</color>
 
     <color name="searchBarBackground">#F3F7FB</color>
     <color name="information_item_border">#EEEEEE</color>
 
+    <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
     <color name="lightBlack">#414141</color>
     <color name="lightGray">#959595</color>

@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/background</item>
-        <item name="colorPrimaryDark">@color/background</item>
+        <item name="colorPrimary">@color/tiffanyBlue</item>
+        <item name="colorPrimaryDark">@color/tiffanyBlue</item>
         <item name="colorAccent">@color/tiffanyBlue</item>
         <!-- 使用LightStatusBarMode -->
         <item name="android:windowLightStatusBar">true</item>
@@ -47,13 +47,13 @@
     </style>
 
     <style name="Information_title">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/_14ssp</item>
     </style>
 
     <style name="Search_cancel">
         <item name="android:text">@string/search_bar_cancel</item>
-        <item name="android:textColor">@color/tiffanyBlue</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/_13sdp</item>
         <item name="android:gravity">center</item>
     </style>

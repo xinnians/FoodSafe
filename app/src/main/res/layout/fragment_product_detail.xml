@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/tiffanyBlue">
 
     <ImageView
         android:id="@+id/btn_back"
@@ -21,7 +21,7 @@
         android:layout_height="@dimen/_36sdp"
         android:gravity="center"
         android:text="@string/product_detail_title"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -41,6 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_50sdp"
-                android:background="@color/information_item_border"
+                android:background="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_product" />
@@ -166,7 +167,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:background="@color/information_item_border"
+                android:background="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/company" />
@@ -310,7 +311,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_16sdp"
-                    android:background="@color/information_item_border"
+                    android:background="@color/background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ckeckItemsContent" />
@@ -336,7 +337,7 @@
                 android:id="@+id/block_gray4"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_8sdp"
-                android:background="@color/information_item_border"
+                android:background="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkReportLink" />

@@ -28,7 +28,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:elevation="@dimen/_2sdp"
-                android:background="@color/background">
+                android:background="@color/tiffanyBlue">
 
                 <TextView
                     android:id="@+id/search_bar_title"
@@ -70,7 +70,7 @@
                 android:id="@+id/space2"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_1sdp"
-                android:background="@color/information_item_border"
+                android:background="@color/tiffanyBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_bar"

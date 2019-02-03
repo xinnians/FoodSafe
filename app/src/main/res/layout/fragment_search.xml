@@ -10,6 +10,7 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_35sdp"
+        android:background="@color/tiffanyBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
